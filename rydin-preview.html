@@ -1,0 +1,1451 @@
+<!doctype html>
+<html lang="en-IN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Rydin — Share the Ride. Split the Cost. Travel Smarter.</title>
+    <meta
+      name="description"
+      content="Rydin — India's first true peer-to-peer mobility network. Split fuel with verified commuters on your exact route. Zero surge, up to 50% cheaper than cabs."
+    />
+
+    <!--
+      STANDALONE PREVIEW
+      ------------------
+      This single file is the "double-click to run" companion to the Next.js
+      source in this folder. It carries the same copy, the same fare maths and
+      the same interactions, but with hand-rolled animation instead of
+      framer-motion (which is not on the artifact allowlist) and no build step.
+
+      React + Babel are loaded from a CDN so the file stays a single artifact.
+      Tailwind is NOT the Play CDN — the compiled stylesheet is inlined below
+      (generated from the real tailwind.config.ts), so the styling is identical
+      to production and the page renders even if the JS CDN is blocked.
+    -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Geist,ui-sans-serif,system-ui,-apple-system,Segoe UI,Helvetica Neue,Arial,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:Geist Mono,ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}*{border-color:hsla(0,0%,100%,.1)}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}body{--tw-bg-opacity:1;background-color:rgb(9 10 15/var(--tw-bg-opacity,1));font-family:Geist,ui-sans-serif,system-ui,-apple-system,Segoe UI,Helvetica Neue,Arial,sans-serif;--tw-text-opacity:1;color:rgb(244 244 245/var(--tw-text-opacity,1));-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"cv11","ss01";text-rendering:optimizeLegibility}.font-mono,[data-numeric]{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}:focus-visible{outline:2px solid transparent;outline-offset:2px;--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000);--tw-ring-color:rgba(52,211,153,.7);--tw-ring-offset-width:2px;--tw-ring-offset-color:#090a0f}::-moz-selection{background-color:rgba(16,185,129,.3);color:#ecfdf5}::selection{background-color:rgba(16,185,129,.3);color:#ecfdf5}input[type=range]{-webkit-appearance:none;-moz-appearance:none;appearance:none;background:transparent;width:100%}input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:999px;background:hsla(0,0%,100%,.09)}input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;height:26px;width:26px;margin-top:-10px;border-radius:999px;background:linear-gradient(180deg,#34d399,#059669);border:2px solid hsla(0,0%,100%,.85);box-shadow:0 6px 18px -4px rgba(16,185,129,.8);cursor:grab;-webkit-transition:transform .16s cubic-bezier(.22,1,.36,1);transition:transform .16s cubic-bezier(.22,1,.36,1)}input[type=range]:active::-webkit-slider-thumb{transform:scale(1.14);cursor:grabbing}input[type=range]::-moz-range-track{height:6px;border-radius:999px;background:hsla(0,0%,100%,.09)}input[type=range]::-moz-range-thumb{height:22px;width:22px;border-radius:999px;background:linear-gradient(180deg,#34d399,#059669);border:2px solid hsla(0,0%,100%,.85);box-shadow:0 6px 18px -4px rgba(16,185,129,.8);cursor:grab}.road-dash{background-image:repeating-linear-gradient(90deg,rgba(16,185,129,.55) 0 18px,transparent 18px 34px)}.road-dash-muted{background-image:repeating-linear-gradient(90deg,hsla(0,0%,100%,.14) 0 18px,transparent 18px 34px)}.stub-notch{position:absolute;height:22px;width:22px;border-radius:999px;background:var(--stub-notch);box-shadow:inset 0 1px 2px rgba(0,0,0,.9)}.stub-notch-left{left:-11px}.stub-notch-right{right:-11px}.stub-perforation{background-image:repeating-linear-gradient(90deg,hsla(0,0%,100%,.28) 0 5px,transparent 5px 12px)}.cta-sheen{background:linear-gradient(100deg,transparent 20%,hsla(0,0%,100%,.42) 50%,transparent 80%)}.pointer-events-none{pointer-events:none}.visible{visibility:visible}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-inset-4{inset:-1rem}.inset-0{inset:0}.inset-x-0{left:0;right:0}.inset-x-5{left:1.25rem;right:1.25rem}.inset-y-0{top:0;bottom:0}.-bottom-40{bottom:-10rem}.-right-10{right:-2.5rem}.-top-10{top:-2.5rem}.bottom-0{bottom:0}.left-0{left:0}.left-0\.5{left:.125rem}.left-1\/2{left:50%}.left-\[-10\%\]{left:-10%}.left-\[22px\]{left:22px}.right-4{right:1rem}.right-\[-12\%\]{right:-12%}.top-0{top:0}.top-0\.5{top:.125rem}.top-1\/2{top:50%}.top-4{top:1rem}.top-\[-6\%\]{top:-6%}.top-\[18\%\]{top:18%}.top-\[2px\]{top:2px}.-z-10{z-index:-10}.z-40{z-index:40}.z-50{z-index:50}.z-\[60\]{z-index:60}.mx-0\.5{margin-left:.125rem;margin-right:.125rem}.mx-\[1px\]{margin-left:1px;margin-right:1px}.mx-auto{margin-left:auto;margin-right:auto}.mb-1\.5{margin-bottom:.375rem}.mb-2{margin-bottom:.5rem}.ml-auto{margin-left:auto}.mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-1\.5{margin-top:.375rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-2{margin-top:.5rem}.mt-2\.5{margin-top:.625rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-6{margin-top:1.5rem}.mt-7{margin-top:1.75rem}.mt-8{margin-top:2rem}.mt-auto{margin-top:auto}.mt-px{margin-top:1px}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-1{height:.25rem}.h-1\.5{height:.375rem}.h-10{height:2.5rem}.h-2{height:.5rem}.h-2\.5{height:.625rem}.h-3{height:.75rem}.h-3\.5{height:.875rem}.h-32{height:8rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-7{height:1.75rem}.h-8{height:2rem}.h-9{height:2.25rem}.h-\[30rem\]{height:30rem}.h-\[38rem\]{height:38rem}.h-\[3px\]{height:3px}.h-full{height:100%}.h-px{height:1px}.min-h-\[30rem\]{min-height:30rem}.w-1{width:.25rem}.w-10{width:2.5rem}.w-11{width:2.75rem}.w-2{width:.5rem}.w-2\.5{width:.625rem}.w-3{width:.75rem}.w-3\.5{width:.875rem}.w-32{width:8rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-6{width:1.5rem}.w-7{width:1.75rem}.w-8{width:2rem}.w-9{width:2.25rem}.w-\[30rem\]{width:30rem}.w-\[38rem\]{width:38rem}.w-\[3px\]{width:3px}.w-full{width:100%}.w-px{width:1px}.min-w-0{min-width:0}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.max-w-\[16rem\]{max-width:16rem}.max-w-lg{max-width:32rem}.max-w-md{max-width:28rem}.max-w-sm{max-width:24rem}.max-w-xl{max-width:36rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.-translate-x-1\/2{--tw-translate-x:-50%}.-translate-x-1\/2,.-translate-x-full{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-x-full{--tw-translate-x:-100%}.-translate-y-1\/2{--tw-translate-y:-50%}.-translate-y-1\/2,.translate-y-0{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-0{--tw-translate-y:0px}.translate-y-24{--tw-translate-y:6rem}.rotate-\[135deg\],.translate-y-24{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.rotate-\[135deg\]{--tw-rotate:135deg}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes orb-drift{0%,to{transform:translateZ(0) scale(1)}50%{transform:translate3d(0,-24px,0) scale(1.08)}}.animate-orb-drift{animation:orb-drift 14s ease-in-out infinite}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite}@keyframes pulse-ring{0%{transform:scale(.85);opacity:.9}80%,to{transform:scale(2.1);opacity:0}}.animate-pulse-ring{animation:pulse-ring 2.4s cubic-bezier(.24,.6,.36,1) infinite}@keyframes road-flow{0%{background-position:0 0}to{background-position:34px 0}}.animate-road-flow{animation:road-flow 3s linear infinite}@keyframes shimmer{0%{transform:translateX(-120%)}to{transform:translateX(220%)}}.animate-shimmer{animation:shimmer 2.6s ease-in-out infinite}@keyframes spin{to{transform:rotate(1turn)}}.animate-spin{animation:spin 1s linear infinite}.scroll-mt-28{scroll-margin-top:7rem}.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.place-items-center{place-items:center}.items-start{align-items:flex-start}.items-center{align-items:center}.items-baseline{align-items:baseline}.items-stretch{align-items:stretch}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1\.5{gap:.375rem}.gap-10{gap:2.5rem}.gap-12{gap:3rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.gap-px{gap:1px}.gap-x-16{-moz-column-gap:4rem;column-gap:4rem}.gap-x-2{-moz-column-gap:.5rem;column-gap:.5rem}.gap-x-4{-moz-column-gap:1rem;column-gap:1rem}.gap-x-6{-moz-column-gap:1.5rem;column-gap:1.5rem}.gap-y-3{row-gap:.75rem}.gap-y-8{row-gap:2rem}.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.space-y-2\.5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.625rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.625rem*var(--tw-space-y-reverse))}.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.divide-y>:not([hidden])~:not([hidden]){--tw-divide-y-reverse:0;border-top-width:calc(1px*(1 - var(--tw-divide-y-reverse)));border-bottom-width:calc(1px*var(--tw-divide-y-reverse))}.divide-white\/\[0\.07\]>:not([hidden])~:not([hidden]){border-color:hsla(0,0%,100%,.07)}.overflow-hidden,.truncate{overflow:hidden}.truncate{text-overflow:ellipsis;white-space:nowrap}.text-balance{text-wrap:balance}.text-pretty{text-wrap:pretty}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-\[28px\]{border-radius:28px}.rounded-\[2rem\]{border-radius:2rem}.rounded-\[32px\]{border-radius:32px}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.border-b{border-bottom-width:1px}.border-r{border-right-width:1px}.border-t{border-top-width:1px}.border-white\/10{border-color:hsla(0,0%,100%,.1)}.border-white\/\[0\.06\]{border-color:hsla(0,0%,100%,.06)}.border-white\/\[0\.07\]{border-color:hsla(0,0%,100%,.07)}.bg-amber-400{--tw-bg-opacity:1;background-color:rgb(251 191 36/var(--tw-bg-opacity,1))}.bg-amber-500\/15{background-color:rgba(245,158,11,.15)}.bg-amber-500\/20{background-color:rgba(245,158,11,.2)}.bg-amber-500\/\[0\.08\]{background-color:rgba(245,158,11,.08)}.bg-black\/20{background-color:rgba(0,0,0,.2)}.bg-black\/25{background-color:rgba(0,0,0,.25)}.bg-black\/30{background-color:rgba(0,0,0,.3)}.bg-black\/70{background-color:rgba(0,0,0,.7)}.bg-emerald-300{--tw-bg-opacity:1;background-color:rgb(110 231 183/var(--tw-bg-opacity,1))}.bg-emerald-400{--tw-bg-opacity:1;background-color:rgb(52 211 153/var(--tw-bg-opacity,1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129/var(--tw-bg-opacity,1))}.bg-emerald-500\/10{background-color:rgba(16,185,129,.1)}.bg-emerald-500\/15{background-color:rgba(16,185,129,.15)}.bg-emerald-500\/20{background-color:rgba(16,185,129,.2)}.bg-emerald-500\/\[0\.07\]{background-color:rgba(16,185,129,.07)}.bg-emerald-500\/\[0\.08\]{background-color:rgba(16,185,129,.08)}.bg-ink-deep\/60{background-color:rgba(11,14,22,.6)}.bg-ink-deep\/80{background-color:rgba(11,14,22,.8)}.bg-ink-deep\/85{background-color:rgba(11,14,22,.85)}.bg-ink-raise\/90{background-color:rgba(15,23,42,.9)}.bg-ink-void{--tw-bg-opacity:1;background-color:rgb(9 10 15/var(--tw-bg-opacity,1))}.bg-ink-void\/60{background-color:rgba(9,10,15,.6)}.bg-transparent{background-color:transparent}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/10{background-color:hsla(0,0%,100%,.1)}.bg-white\/15{background-color:hsla(0,0%,100%,.15)}.bg-white\/20{background-color:hsla(0,0%,100%,.2)}.bg-white\/30{background-color:hsla(0,0%,100%,.3)}.bg-white\/5{background-color:hsla(0,0%,100%,.05)}.bg-white\/\[0\.03\]{background-color:hsla(0,0%,100%,.03)}.bg-white\/\[0\.04\]{background-color:hsla(0,0%,100%,.04)}.bg-white\/\[0\.05\]{background-color:hsla(0,0%,100%,.05)}.bg-white\/\[0\.06\]{background-color:hsla(0,0%,100%,.06)}.bg-white\/\[0\.07\]{background-color:hsla(0,0%,100%,.07)}.bg-white\/\[0\.08\]{background-color:hsla(0,0%,100%,.08)}.bg-zinc-500\/70{background-color:hsla(240,4%,46%,.7)}.bg-gradient-to-b{background-image:linear-gradient(to bottom,var(--tw-gradient-stops))}.bg-gradient-to-br{background-image:linear-gradient(to bottom right,var(--tw-gradient-stops))}.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}.bg-graticule{background-image:linear-gradient(90deg,hsla(0,0%,100%,.045) 1px,transparent 0),linear-gradient(180deg,hsla(0,0%,100%,.045) 1px,transparent 0)}.from-emerald-300{--tw-gradient-from:#6ee7b7 var(--tw-gradient-from-position);--tw-gradient-to:rgba(110,231,183,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-emerald-400{--tw-gradient-from:#34d399 var(--tw-gradient-from-position);--tw-gradient-to:rgba(52,211,153,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-emerald-500\/10{--tw-gradient-from:rgba(16,185,129,.1) var(--tw-gradient-from-position);--tw-gradient-to:rgba(16,185,129,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-emerald-500\/15{--tw-gradient-from:rgba(16,185,129,.15) var(--tw-gradient-from-position);--tw-gradient-to:rgba(16,185,129,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-emerald-500\/90{--tw-gradient-from:rgba(16,185,129,.9) var(--tw-gradient-from-position);--tw-gradient-to:rgba(16,185,129,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.from-white\/\[0\.06\]{--tw-gradient-from:hsla(0,0%,100%,.06) var(--tw-gradient-from-position);--tw-gradient-to:hsla(0,0%,100%,0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from),var(--tw-gradient-to)}.to-emerald-500{--tw-gradient-to:#10b981 var(--tw-gradient-to-position)}.to-emerald-500\/\[0\.04\]{--tw-gradient-to:rgba(16,185,129,.04) var(--tw-gradient-to-position)}.to-emerald-600{--tw-gradient-to:#059669 var(--tw-gradient-to-position)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.to-white\/\[0\.02\]{--tw-gradient-to:hsla(0,0%,100%,.02) var(--tw-gradient-to-position)}.bg-grid-72{background-size:72px 72px}.bg-clip-text{-webkit-background-clip:text;background-clip:text}.p-1\.5{padding:.375rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-7{padding:1.75rem}.p-8{padding:2rem}.px-1{padding-left:.25rem;padding-right:.25rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-2\.5{padding-left:.625rem;padding-right:.625rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-3\.5{padding-left:.875rem;padding-right:.875rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-7{padding-left:1.75rem;padding-right:1.75rem}.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-1\.5{padding-top:.375rem;padding-bottom:.375rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-12{padding-top:3rem;padding-bottom:3rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.pb-0{padding-bottom:0}.pb-16{padding-bottom:4rem}.pb-3{padding-bottom:.75rem}.pb-4{padding-bottom:1rem}.pb-6{padding-bottom:1.5rem}.pl-\[3\.1rem\]{padding-left:3.1rem}.pt-28{padding-top:7rem}.pt-3{padding-top:.75rem}.pt-4{padding-top:1rem}.pt-5{padding-top:1.25rem}.pt-6{padding-top:1.5rem}.pt-8{padding-top:2rem}.text-left{text-align:left}.text-center{text-align:center}.text-right{text-align:right}.font-mono{font-family:Geist Mono,ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.font-sans{font-family:Geist,ui-sans-serif,system-ui,-apple-system,Segoe UI,Helvetica Neue,Arial,sans-serif}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-\[15px\]{font-size:15px}.text-base{font-size:1rem;line-height:1.5rem}.text-display-lg{font-size:clamp(2.75rem,1.2rem + 6.6vw,5.5rem);line-height:.98;letter-spacing:-.04em}.text-display-sm{font-size:clamp(1.75rem,1.2rem + 2.6vw,2.75rem);line-height:1.05;letter-spacing:-.03em}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-extrabold{font-weight:800}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.leading-tight{line-height:1.25}.tracking-\[0\.2em\]{letter-spacing:.2em}.tracking-tight{letter-spacing:-.025em}.tracking-wide{letter-spacing:.025em}.tracking-wider{letter-spacing:.05em}.text-amber-200{--tw-text-opacity:1;color:rgb(253 230 138/var(--tw-text-opacity,1))}.text-amber-200\/90{color:hsla(48,97%,77%,.9)}.text-amber-300{--tw-text-opacity:1;color:rgb(252 211 77/var(--tw-text-opacity,1))}.text-amber-300\/90{color:rgba(252,211,77,.9)}.text-amber-950{--tw-text-opacity:1;color:rgb(69 26 3/var(--tw-text-opacity,1))}.text-emerald-100\/60{color:rgba(209,250,229,.6)}.text-emerald-200{--tw-text-opacity:1;color:rgb(167 243 208/var(--tw-text-opacity,1))}.text-emerald-200\/70{color:rgba(167,243,208,.7)}.text-emerald-200\/80{color:rgba(167,243,208,.8)}.text-emerald-200\/90{color:rgba(167,243,208,.9)}.text-emerald-300{--tw-text-opacity:1;color:rgb(110 231 183/var(--tw-text-opacity,1))}.text-emerald-300\/60{color:rgba(110,231,183,.6)}.text-emerald-300\/90{color:rgba(110,231,183,.9)}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153/var(--tw-text-opacity,1))}.text-emerald-400\/70{color:rgba(52,211,153,.7)}.text-emerald-400\/80{color:rgba(52,211,153,.8)}.text-emerald-50\/80{color:rgba(236,253,245,.8)}.text-red-300{--tw-text-opacity:1;color:rgb(252 165 165/var(--tw-text-opacity,1))}.text-transparent{color:transparent}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.text-zinc-100{--tw-text-opacity:1;color:rgb(244 244 245/var(--tw-text-opacity,1))}.text-zinc-200{--tw-text-opacity:1;color:rgb(228 228 231/var(--tw-text-opacity,1))}.text-zinc-300{--tw-text-opacity:1;color:rgb(212 212 216/var(--tw-text-opacity,1))}.text-zinc-400{--tw-text-opacity:1;color:rgb(161 161 170/var(--tw-text-opacity,1))}.text-zinc-50{--tw-text-opacity:1;color:rgb(250 250 250/var(--tw-text-opacity,1))}.text-zinc-500{--tw-text-opacity:1;color:rgb(113 113 122/var(--tw-text-opacity,1))}.text-zinc-600{--tw-text-opacity:1;color:rgb(82 82 91/var(--tw-text-opacity,1))}.text-zinc-700{--tw-text-opacity:1;color:rgb(63 63 70/var(--tw-text-opacity,1))}.underline-offset-4{text-underline-offset:4px}.antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.opacity-0{opacity:0}.opacity-100{opacity:1}.opacity-60{opacity:.6}.opacity-75{opacity:.75}.shadow{--tw-shadow:0 1px 3px 0 rgba(0,0,0,.1),0 1px 2px -1px rgba(0,0,0,.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color),0 1px 2px -1px var(--tw-shadow-color)}.shadow,.shadow-emerald{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-emerald{--tw-shadow:0 18px 50px -18px rgba(16,185,129,.55);--tw-shadow-colored:0 18px 50px -18px var(--tw-shadow-color)}.shadow-emerald-sm{--tw-shadow:0 8px 24px -10px rgba(16,185,129,.45);--tw-shadow-colored:0 8px 24px -10px var(--tw-shadow-color)}.shadow-emerald-sm,.shadow-glass{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-glass{--tw-shadow:0 1px 0 0 hsla(0,0%,100%,.06) inset,0 24px 60px -24px rgba(0,0,0,.9);--tw-shadow-colored:inset 0 1px 0 0 var(--tw-shadow-color),0 24px 60px -24px var(--tw-shadow-color)}.ring-1{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color)}.ring-1,.ring-2{box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.ring-2{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color)}.ring-amber-400\/20{--tw-ring-color:rgba(251,191,36,.2)}.ring-emerald-400\/20{--tw-ring-color:rgba(52,211,153,.2)}.ring-emerald-400\/25{--tw-ring-color:rgba(52,211,153,.25)}.ring-emerald-400\/30{--tw-ring-color:rgba(52,211,153,.3)}.ring-emerald-400\/40{--tw-ring-color:rgba(52,211,153,.4)}.ring-ink-deep{--tw-ring-opacity:1;--tw-ring-color:rgb(11 14 22/var(--tw-ring-opacity,1))}.ring-red-400\/60{--tw-ring-color:hsla(0,91%,71%,.6)}.ring-white\/10{--tw-ring-color:hsla(0,0%,100%,.1)}.blur-2xl{--tw-blur:blur(40px)}.blur-2xl,.blur-3xl{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-3xl{--tw-blur:blur(64px)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-sm{--tw-backdrop-blur:blur(4px)}.backdrop-blur-sm,.backdrop-blur-xl{backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-xl{--tw-backdrop-blur:blur(24px)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-1000{transition-duration:1s}.duration-300{transition-duration:.3s}.duration-500{transition-duration:.5s}.duration-700{transition-duration:.7s}.text-balance{text-wrap:balance}.text-pretty{text-wrap:pretty}.ring-hairline{box-shadow:inset 0 0 0 1px hsla(0,0%,100%,.08),inset 0 1px 0 0 hsla(0,0%,100%,.06)}:root{color-scheme:dark;--stub-notch:#0a0c13}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,:after,:before{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}.placeholder\:text-zinc-600::-moz-placeholder{--tw-text-opacity:1;color:rgb(82 82 91/var(--tw-text-opacity,1))}.placeholder\:text-zinc-600::placeholder{--tw-text-opacity:1;color:rgb(82 82 91/var(--tw-text-opacity,1))}.last\:border-0:last-child{border-width:0}.last\:pb-0:last-child{padding-bottom:0}.focus-within\:ring-2:focus-within{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.focus-within\:ring-emerald-400\/70:focus-within{--tw-ring-color:rgba(52,211,153,.7)}.hover\:bg-emerald-500\/20:hover{background-color:rgba(16,185,129,.2)}.hover\:bg-white\/10:hover{background-color:hsla(0,0%,100%,.1)}.hover\:bg-white\/\[0\.02\]:hover{background-color:hsla(0,0%,100%,.02)}.hover\:bg-white\/\[0\.03\]:hover{background-color:hsla(0,0%,100%,.03)}.hover\:bg-white\/\[0\.04\]:hover{background-color:hsla(0,0%,100%,.04)}.hover\:bg-white\/\[0\.08\]:hover{background-color:hsla(0,0%,100%,.08)}.hover\:bg-white\/\[0\.09\]:hover{background-color:hsla(0,0%,100%,.09)}.hover\:bg-white\/\[0\.10\]:hover{background-color:hsla(0,0%,100%,.1)}.hover\:text-emerald-300:hover{--tw-text-opacity:1;color:rgb(110 231 183/var(--tw-text-opacity,1))}.hover\:text-zinc-100:hover{--tw-text-opacity:1;color:rgb(244 244 245/var(--tw-text-opacity,1))}.hover\:text-zinc-300:hover{--tw-text-opacity:1;color:rgb(212 212 216/var(--tw-text-opacity,1))}.hover\:underline:hover{text-decoration-line:underline}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.focus\:ring-emerald-400\/70:focus{--tw-ring-color:rgba(52,211,153,.7)}.focus\:ring-red-400\/70:focus{--tw-ring-color:hsla(0,91%,71%,.7)}.disabled\:opacity-80:disabled{opacity:.8}@media (min-width:640px){.sm\:col-span-2{grid-column:span 2/span 2}.sm\:inline{display:inline}.sm\:hidden{display:none}.sm\:w-64{width:16rem}.sm\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.sm\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.sm\:grid-cols-\[1fr_auto\]{grid-template-columns:1fr auto}.sm\:items-center{align-items:center}.sm\:p-12{padding:3rem}.sm\:p-6{padding:1.5rem}.sm\:p-7{padding:1.75rem}.sm\:p-8{padding:2rem}.sm\:px-4{padding-left:1rem;padding-right:1rem}.sm\:px-5{padding-left:1.25rem;padding-right:1.25rem}.sm\:px-6{padding-left:1.5rem;padding-right:1.5rem}.sm\:px-7{padding-left:1.75rem;padding-right:1.75rem}.sm\:py-6{padding-top:1.5rem;padding-bottom:1.5rem}.sm\:pb-0{padding-bottom:0}.sm\:pb-4{padding-bottom:1rem}.sm\:pb-7{padding-bottom:1.75rem}.sm\:pl-\[4rem\]{padding-left:4rem}.sm\:pt-32{padding-top:8rem}.sm\:pt-4{padding-top:1rem}.sm\:pt-5{padding-top:1.25rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}.sm\:text-5xl{font-size:3rem;line-height:1}.sm\:text-6xl{font-size:3.75rem;line-height:1}.sm\:text-lg{font-size:1.125rem;line-height:1.75rem}}@media (min-width:768px){.md\:inline-flex{display:inline-flex}}@media (min-width:1024px){.lg\:col-span-2{grid-column:span 2/span 2}.lg\:col-span-3{grid-column:span 3/span 3}.lg\:row-span-2{grid-row:span 2/span 2}.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}.lg\:grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}.lg\:grid-cols-\[0\.9fr_1\.1fr\]{grid-template-columns:.9fr 1.1fr}.lg\:grid-cols-\[1\.05fr_0\.95fr\]{grid-template-columns:1.05fr .95fr}.lg\:grid-cols-\[1\.15fr_0\.85fr\]{grid-template-columns:1.15fr .85fr}.lg\:flex-row{flex-direction:row}.lg\:justify-between{justify-content:space-between}.lg\:gap-10{gap:2.5rem}.lg\:py-14{padding-top:3.5rem;padding-bottom:3.5rem}.lg\:py-24{padding-top:6rem}.lg\:pb-24,.lg\:py-24{padding-bottom:6rem}.lg\:pt-40{padding-top:10rem}}
+    </style>
+
+    <style>
+      /* A couple of preview-only niceties that the compiled sheet can't infer. */
+      html { scroll-behavior: smooth; }
+      #root:empty::after {
+        content: "Loading Rydin…";
+        position: fixed; inset: 0; display: grid; place-items: center;
+        color: #52525b; font-family: "Geist Mono", monospace; font-size: 13px;
+      }
+      .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s cubic-bezier(.22,1,.36,1), transform .6s cubic-bezier(.22,1,.36,1); }
+      .reveal.in { opacity: 1; transform: none; }
+      @media (prefers-reduced-motion: reduce) {
+        .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+      }
+    </style>
+  </head>
+  <body class="bg-ink-void text-zinc-100 font-sans antialiased">
+    <!-- Decorative floors, mirrored from app/layout.tsx -->
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10" style="background:radial-gradient(120% 90% at 50% -10%, rgba(16,185,129,0.10), transparent 55%), #090A0F"></div>
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 bg-graticule bg-grid-72" style="mask-image:radial-gradient(100% 70% at 50% 0%, #000 30%, transparent 75%); -webkit-mask-image:radial-gradient(100% 70% at 50% 0%, #000 30%, transparent 75%)"></div>
+
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+
+    <script type="text/babel" data-presets="react">
+/* ================================================================== *
+ * Rydin standalone preview — logic ported verbatim from lib/rydin/*
+ * ================================================================== */
+const { useState, useEffect, useMemo, useRef, useCallback, createContext, useContext } = React;
+
+/* ---------- constants (lib/rydin/constants.ts) ---------- */
+const BRAND = {
+  name: "Rydin",
+  tagline: "Share the Ride. Split the Cost. Travel Smarter.",
+  positioning: "India's First True Peer-to-Peer Mobility Network",
+  shareOrigin: "https://rydin.in",
+};
+
+const HUBS = [
+  { id: "idr-bpl", label: "Indore ⇄ Bhopal Corridor", code: "IDR⇄BPL", detail: "195 km intercity. Peak departures 06:00–09:00 and 17:00–20:00.", kind: "corridor" },
+  { id: "davv", label: "DAVV Campus", code: "DAVV", detail: "Takshashila & Khandwa Road campuses. Verified student matching.", kind: "campus" },
+  { id: "sgsits", label: "SGSITS", code: "SGSITS", detail: "Sanwer Road feeders and Old Palasia micro-routes.", kind: "campus" },
+  { id: "mp-nagar", label: "MP Nagar", code: "MPN", detail: "Bhopal coaching and commercial belt. Zone I & II pickups.", kind: "business" },
+  { id: "crystal-it", label: "Crystal IT Park", code: "CITP", detail: "Corporate domain badges live. Shift-aligned pooling.", kind: "business" },
+  { id: "bhawarkua", label: "Bhawarkua", code: "BHK", detail: "Highest student density in Indore. Sub-1 km match radius.", kind: "campus" },
+  { id: "custom", label: "Custom Route", code: "CSTM", detail: "Tell us the route and we'll open it once density clears matching.", kind: "custom" },
+];
+const findHub = (id) => HUBS.find((h) => h.id === id) || HUBS[0];
+
+const QUEUE = {
+  baseCount: 12480,
+  spotsPerReferral: 250,
+  institutionalJump: 1200,
+  projectedMonthlySavingPerCommuter: 340,
+  activeCorridors: 4,
+};
+
+const REWARD_TIERS = [
+  { referrals: 1, title: "Early Beta Access", detail: "First build on your phone before the public store listing." },
+  { referrals: 3, title: "Rydin Plus", detail: "Zero platform fees for your first three months of riding." },
+  { referrals: 5, title: "Founding Member", detail: "₹150 fuel credit plus the Founding Member badge on your profile." },
+];
+
+const LEADERBOARD = [
+  { rank: 1, handle: "Aarav S.", affiliation: "SGSITS", referrals: 24, spotsSkipped: 6000 },
+  { rank: 2, handle: "Ishita R.", affiliation: "DAVV", referrals: 19, spotsSkipped: 4750 },
+  { rank: 3, handle: "Kabir M.", affiliation: "Crystal IT Park", referrals: 16, spotsSkipped: 4000 },
+  { rank: 4, handle: "Ananya P.", affiliation: "MANIT Bhopal", referrals: 12, spotsSkipped: 3000 },
+  { rank: 5, handle: "Rehan Q.", affiliation: "IIT Indore", referrals: 9, spotsSkipped: 2250 },
+];
+
+const FARE_MODEL = {
+  petrolPerLitre: 106.5,
+  tripsPerDay: 2,
+  daysPerMonth: { 5: 22, 7: 30 },
+  commercial: {
+    "two-wheeler": { base: 22, perKm: 6.5, minFare: 35, label: "Bike taxi" },
+    "four-wheeler": { base: 45, perKm: 13.5, minFare: 70, label: "App cab" },
+  },
+  vehicle: {
+    "two-wheeler": { mileage: 45, feePerTrip: 4, seatOptions: [2], label: "Two-wheeler", shortLabel: "Bike" },
+    "four-wheeler": { mileage: 16, feePerTrip: 8, seatOptions: [2, 3, 4], label: "Four-wheeler", shortLabel: "Car" },
+  },
+  distance: { min: 2, max: 60, step: 1, default: 14 },
+  defaultSeats: 3,
+  lowValueDistanceKm: 4,
+};
+
+const CONSUMER_EMAIL_DOMAINS = new Set([
+  "gmail.com","googlemail.com","yahoo.com","yahoo.in","yahoo.co.in","ymail.com","rocketmail.com",
+  "outlook.com","outlook.in","hotmail.com","hotmail.co.uk","live.com","msn.com","icloud.com","me.com",
+  "mac.com","rediffmail.com","protonmail.com","proton.me","pm.me","aol.com","gmx.com","gmx.net",
+  "mail.com","yandex.com","zohomail.com","tutanota.com","hey.com",
+]);
+
+const FAQS = [
+  { question: "How is Rydin different from Rapido, Uber, or Ola?", answer: "Those are commercial taxi services: a driver works for fare income, the platform takes roughly a quarter of it as commission, and demand pushes the price up through surge. Rydin is not a taxi service. Everyone on it is already making the trip — a student driving to DAVV, an engineer driving to Crystal IT Park — and the empty seats are what get shared. Your co-rider contributes toward documented fuel cost for the distance travelled, nothing more. Rydin takes a flat ₹4 (two-wheeler) or ₹8 (four-wheeler) per trip to keep verification and matching running. No commission, no surge, no incentive for anyone to drive further than they were already going." },
+  { question: "Is Rydin legally permitted in India?", answer: "Cost-sharing is legally distinct from plying a private vehicle for hire, and the difference is whether the driver earns a margin. Rydin is built so they structurally cannot: contributions are capped at the fuel cost of the distance actually shared, drivers set no price, and there is no surge or incentive layer. India's Motor Vehicle Aggregator Guidelines include a ride-pooling provision that individual states may adopt, and pooling rules genuinely differ state to state. That is why we open one corridor at a time rather than launching nationally — we go live where the permissions are settled. This is a description of how the product is designed, not legal advice; if you drive for a fleet or under a commercial permit, check your own terms." },
+  { question: "How does Women-Only matching work?", answer: "It is enforced in the matching layer, not left to preference or self-reporting. Turn it on and your ride pool is restricted to riders whose gender is confirmed against government ID during KYC — the same Aadhaar and live-selfie check everyone completes. A profile that has not cleared that verification is never surfaced to you and never sees you in its own results. The setting is yours to change at any time, it applies in both directions, and it is available to verified female riders and drivers alike." },
+  { question: "When does the app launch on my campus or corridor?", answer: "Matching only works above a density threshold — a carpool network with forty people spread across a city cannot fill a single seat. So we open a corridor once enough verified commuters on it have joined the queue, starting with the Indore ⇄ Bhopal corridor and the Indore campus cluster in Batch 1. Joining the waitlist with your route is what moves your area up the build order, and referrals from people on the same route count double toward opening it. You will get a notification the day your corridor turns on." },
+  { question: "What does verification actually involve?", answer: "Four checks, all mandatory, none skippable: Aadhaar identity verification, a live selfie matched against it to stop borrowed accounts, and for anyone offering seats, a driving licence plus vehicle RC confirming they own and may legally drive the car or bike they list. Campus and corporate email badges sit on top as an optional extra signal. Documents are verified and then stored encrypted — a co-rider sees your first name, photo, badges and rating, never your documents." },
+];
+
+/* ---------- calc (lib/rydin/calc.ts) ---------- */
+const inrWhole = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
+const countFormatter = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
+const formatINR = (v) => inrWhole.format(Math.round(v));
+const formatCount = (v) => countFormatter.format(Math.round(v));
+function formatINRCompact(value) {
+  const abs = Math.abs(value);
+  if (abs >= 1e7) return `₹${(value / 1e7).toFixed(2)} Cr`;
+  if (abs >= 1e5) return `₹${(value / 1e5).toFixed(2)} L`;
+  if (abs >= 1e3) return `₹${(value / 1e3).toFixed(1)}K`;
+  return formatINR(value);
+}
+function formatMobile(digits) {
+  const clean = String(digits).replace(/\D/g, "").slice(0, 10);
+  if (clean.length <= 5) return clean;
+  return `${clean.slice(0, 5)} ${clean.slice(5)}`;
+}
+function fnv1a(input) {
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < input.length; i += 1) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193) >>> 0;
+  }
+  return hash >>> 0;
+}
+const CODE_ALPHABET = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
+function encodeBase32(value, length) {
+  let n = value, out = "";
+  for (let i = 0; i < length; i += 1) { out = CODE_ALPHABET[n % CODE_ALPHABET.length] + out; n = Math.floor(n / CODE_ALPHABET.length); }
+  return out;
+}
+const makeIdentitySeed = (fullName, mobile) => fnv1a(`${fullName.trim().toLowerCase()}|${String(mobile).replace(/\D/g, "")}`);
+const makePassId = (seed) => `RY-${encodeBase32(seed, 4)}-${String(seed % 10000).padStart(4, "0")}`;
+const makeReferralCode = (seed) => encodeBase32(Math.imul(seed, 0x9e3779b1) >>> 0, 6);
+const buildReferralLink = (code) => `${BRAND.shareOrigin}/r/${code}`;
+const MIN_QUEUE_POSITION = 37;
+const makeBasePosition = (seed) => QUEUE.baseCount + 11 + (seed % 204);
+function computeStanding(record) {
+  const institutionalJump = record.institutionVerified ? QUEUE.institutionalJump : 0;
+  const referralJump = Math.max(0, record.referrals) * QUEUE.spotsPerReferral;
+  const totalJump = institutionalJump + referralJump;
+  return { basePosition: record.basePosition, institutionalJump, referralJump, totalJump,
+    currentPosition: Math.max(MIN_QUEUE_POSITION, record.basePosition - totalJump) };
+}
+function computeTierProgress(referrals) {
+  const maxTier = REWARD_TIERS[REWARD_TIERS.length - 1].referrals;
+  const unlocked = REWARD_TIERS.filter((t) => referrals >= t.referrals);
+  const next = REWARD_TIERS.find((t) => referrals < t.referrals);
+  return { unlocked, next, remaining: next ? next.referrals - referrals : 0, percent: Math.min(100, (referrals / maxTier) * 100) };
+}
+const availableSeats = (vehicle) => FARE_MODEL.vehicle[vehicle].seatOptions;
+const normaliseSeats = (vehicle, seats) => {
+  const options = availableSeats(vehicle);
+  return options.includes(seats) ? seats : options[options.length - 1];
+};
+function computeSavings(distanceKm, frequency, vehicle, seatsInput = FARE_MODEL.defaultSeats) {
+  const distance = Math.max(FARE_MODEL.distance.min, Math.min(FARE_MODEL.distance.max, distanceKm));
+  const seats = normaliseSeats(vehicle, seatsInput);
+  const daysPerMonth = FARE_MODEL.daysPerMonth[frequency];
+  const tripsPerMonth = daysPerMonth * FARE_MODEL.tripsPerDay;
+  const spec = FARE_MODEL.vehicle[vehicle];
+  const fuelPerKm = FARE_MODEL.petrolPerLitre / spec.mileage;
+  const soloMonthly = fuelPerKm * distance * tripsPerMonth;
+  const commercial = FARE_MODEL.commercial[vehicle];
+  const commercialPerTrip = Math.max(commercial.minFare, commercial.base + commercial.perKm * distance);
+  const commercialMonthly = commercialPerTrip * tripsPerMonth;
+  const rydinPerKm = fuelPerKm / seats;
+  const rydinMonthly = (rydinPerKm * distance + spec.feePerTrip) * tripsPerMonth;
+  const savedVsSolo = Math.max(0, soloMonthly - rydinMonthly);
+  const savedVsCommercial = Math.max(0, commercialMonthly - rydinMonthly);
+  const savedVsSoloPercent = soloMonthly > 0 ? (savedVsSolo / soloMonthly) * 100 : 0;
+  const savingPerKm = fuelPerKm * (1 - 1 / seats);
+  const soloBreakEvenKm = savingPerKm > 0 ? spec.feePerTrip / savingPerKm : Infinity;
+  return {
+    daysPerMonth, tripsPerDay: FARE_MODEL.tripsPerDay, seats,
+    soloMonthly: Math.round(soloMonthly), commercialMonthly: Math.round(commercialMonthly), rydinMonthly: Math.round(rydinMonthly),
+    savedVsCommercialMonthly: Math.round(savedVsCommercial), savedVsCommercialYearly: Math.round(savedVsCommercial * 12),
+    savedVsCommercialPercent: commercialMonthly > 0 ? Math.round((savedVsCommercial / commercialMonthly) * 100) : 0,
+    savedVsSoloMonthly: Math.round(savedVsSolo), savedVsSoloPercent: Math.round(savedVsSoloPercent),
+    rydinPerKm, costsMoreThanSolo: rydinMonthly > soloMonthly, soloBreakEvenKm, isLowValue: savedVsSoloPercent < 15,
+  };
+}
+const projectedPooledSavings = (queueCount) => queueCount * QUEUE.projectedMonthlySavingPerCommuter;
+const passRoute = (r) => (r.hubId === "custom" && r.customRoute.trim() ? r.customRoute.trim() : r.hubLabel);
+function passIssuedOn(r) {
+  const d = new Date(r.joinedAt);
+  if (Number.isNaN(d.getTime())) return "—";
+  return new Intl.DateTimeFormat("en-IN", { day: "2-digit", month: "short", year: "numeric" }).format(d);
+}
+
+/* ---------- validation (lib/rydin/validate.ts) ---------- */
+const MOBILE_PATTERN = /^[6-9]\d{9}$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)+$/;
+const digitsOnly = (value, max = 10) => value.replace(/\D/g, "").slice(0, max);
+const isValidEmail = (v) => EMAIL_PATTERN.test(v.trim());
+const emailDomain = (v) => { const at = v.trim().toLowerCase().lastIndexOf("@"); return at === -1 ? "" : v.trim().toLowerCase().slice(at + 1); };
+const isInstitutionalEmail = (v) => { if (!isValidEmail(v)) return false; const d = emailDomain(v); return d.length > 0 && !CONSUMER_EMAIL_DOMAINS.has(d); };
+function validateStep(step, draft) {
+  const errors = {};
+  if (step === 0) {
+    const name = draft.fullName.trim();
+    if (name.length === 0) errors.fullName = "Enter your name as it appears on your ID.";
+    else if (name.length < 2) errors.fullName = "That looks too short — enter your full name.";
+    else if (!/[a-zA-Zऀ-ॿ]/.test(name)) errors.fullName = "Names need at least one letter.";
+    const mobile = digitsOnly(draft.mobile);
+    if (mobile.length === 0) errors.mobile = "Enter the mobile number you'll use to verify.";
+    else if (mobile.length < 10) errors.mobile = `${10 - mobile.length} digit${10 - mobile.length === 1 ? "" : "s"} to go — Indian mobile numbers are 10 digits.`;
+    else if (!MOBILE_PATTERN.test(mobile)) errors.mobile = "Indian mobile numbers start with 6, 7, 8 or 9.";
+  }
+  if (step === 1 && draft.hubId === "custom" && draft.customRoute.trim().length < 3)
+    errors.customRoute = "Name the two ends of your route, e.g. Vijay Nagar → Rau.";
+  if (step === 2 && draft.institutionalEmail.trim().length > 0 && !isValidEmail(draft.institutionalEmail))
+    errors.institutionalEmail = "Check the address — it needs an @ and a domain.";
+  return errors;
+}
+const hasErrors = (e) => Object.keys(e).length > 0;
+const validateAll = (draft) => ({ ...validateStep(0, draft), ...validateStep(1, draft), ...validateStep(2, draft) });
+
+/* ---------- storage (lib/rydin/storage.ts) ---------- */
+const STORAGE_KEY = "rydin.waitlist.v1";
+function readPass() {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || parsed.version !== 1 || !parsed.passId || !parsed.referralCode) return null;
+    return parsed;
+  } catch { return null; }
+}
+function writePass(record) { try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(record)); } catch {} }
+function clearPass() { try { window.localStorage.removeItem(STORAGE_KEY); } catch {} }
+
+const EMPTY_DRAFT = {
+  mode: "passenger", fullName: "", mobile: "", hubId: HUBS[0].id,
+  customRoute: "", institutionalEmail: "", womenOnlyMatching: false,
+};
+
+/* ================================================================== *
+ * Shared helpers & primitives
+ * ================================================================== */
+const cn = (...parts) => parts.filter(Boolean).join(" ");
+
+/* Scroll-reveal via IntersectionObserver — the hand-rolled stand-in for
+   framer-motion's <Reveal>. */
+function Reveal({ children, className = "", delay = 0, as = "div" }) {
+  const ref = useRef(null);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setSeen(true); obs.disconnect(); } },
+      { rootMargin: "-10% 0px -10% 0px" }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return React.createElement(as, {
+    ref, className: cn("reveal", seen && "in", className),
+    style: { transitionDelay: `${delay}s` },
+  }, children);
+}
+
+/* Count-up that eases to its target and re-animates when the value changes. */
+function AnimatedNumber({ value, format = (n) => formatCount(n), durationMs = 900 }) {
+  const [display, setDisplay] = useState(value);
+  const fromRef = useRef(value);
+  const rafRef = useRef(0);
+  useEffect(() => {
+    const from = fromRef.current;
+    const to = value;
+    if (from === to) return;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / durationMs);
+      const eased = 1 - Math.pow(2, -10 * t);
+      const current = from + (to - from) * (t >= 1 ? 1 : eased);
+      setDisplay(current);
+      fromRef.current = current;
+      if (t < 1) rafRef.current = requestAnimationFrame(tick);
+      else { fromRef.current = to; setDisplay(to); }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [value, durationMs]);
+  return format(Math.round(display));
+}
+
+function PulseDot({ className = "" }) {
+  return (
+    <span className={cn("relative inline-flex h-2 w-2", className)}>
+      <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 animate-pulse-ring"></span>
+      <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+    </span>
+  );
+}
+const Dot = () => <span aria-hidden="true" className="mx-0.5 h-1 w-1 rounded-full bg-white/30"></span>;
+
+function Eyebrow({ children }) {
+  return (
+    <span className="inline-flex flex-wrap items-center gap-1.5 rounded-full bg-white/[0.04] px-3.5 py-1.5 text-xs font-medium text-zinc-300 ring-hairline">
+      {children}
+    </span>
+  );
+}
+function SectionLabel({ index, title }) {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="font-mono text-xs font-semibold text-emerald-400">{index}</span>
+      <span className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400">{title}</span>
+      <span className="h-px flex-1 road-dash-muted opacity-60"></span>
+    </div>
+  );
+}
+function GlowOrb({ className = "", tone = "emerald" }) {
+  const c = tone === "amber" ? "bg-amber-500/20" : "bg-emerald-500/20";
+  return <div aria-hidden="true" className={cn("pointer-events-none absolute -z-10 rounded-full blur-3xl animate-orb-drift", c, className)}></div>;
+}
+function RoadDivider({ className = "" }) {
+  return <div className={cn("mx-auto h-px w-full max-w-6xl", className)} aria-hidden="true"><div className="h-px w-full road-dash-muted animate-road-flow opacity-60"></div></div>;
+}
+function Wordmark() {
+  return (
+    <span className="inline-flex items-baseline text-lg font-extrabold tracking-tight text-zinc-50">
+      <span>RYD</span>
+      <span className="relative mx-[1px] inline-block">
+        I
+        <span className="absolute left-1/2 top-[2px] h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-emerald-400"></span>
+      </span>
+      <span>N</span>
+    </span>
+  );
+}
+function Tactile({ as = "button", className = "", children, ...rest }) {
+  const [down, setDown] = useState(false);
+  return React.createElement(as, {
+    className, style: { transform: down ? "scale(0.975)" : "none", transition: "transform .12s cubic-bezier(.22,1,.36,1)" },
+    onPointerDown: () => setDown(true), onPointerUp: () => setDown(false), onPointerLeave: () => setDown(false),
+    ...rest,
+  }, children);
+}
+
+/* Inline lucide-style icons (only the ones the preview uses), so there's no
+   icon-font dependency. Each takes className + strokeWidth. */
+const Ic = (paths, { extra } = {}) => function Icon({ className = "h-4 w-4", strokeWidth = 2, fill = "none" }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {paths.map((d, i) => (typeof d === "string" ? <path key={i} d={d} /> : d))}
+      {extra}
+    </svg>
+  );
+};
+const Icons = {
+  Zap: Ic([<polygon key="z" points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />]),
+  Fuel: Ic(["M3 22V4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v18","M3 14h10","M14 9h2a2 2 0 0 1 2 2v6a2 2 0 0 0 2 2 2 2 0 0 0 2-2v-8l-4-4"]),
+  BadgeCheck: Ic(["M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z","m9 12 2 2 4-4"]),
+  Users: Ic(["M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2","M22 21v-2a4 4 0 0 0-3-3.87", <circle key="c" cx="9" cy="7" r="4" />, "M16 3.13a4 4 0 0 1 0 7.75"]),
+  Route: Ic([<circle key="a" cx="6" cy="19" r="3" />, "M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15", <circle key="b" cx="18" cy="5" r="3" />]),
+  TrendingDown: Ic(["M16 17h6v-6", "m22 17-8.5-8.5-5 5L2 7"]),
+  TrendingUp: Ic(["M16 7h6v6", "m22 7-8.5 8.5-5-5L2 17"]),
+  Info: Ic([<circle key="c" cx="12" cy="12" r="10" />, "M12 16v-4", "M12 8h.01"]),
+  Bike: Ic([<circle key="a" cx="18.5" cy="17.5" r="3.5" />, <circle key="b" cx="5.5" cy="17.5" r="3.5" />, <circle key="c" cx="15" cy="5" r="1" />, "M12 17.5V14l-3-3 4-3 2 3h2"]),
+  Car: Ic(["M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2", <circle key="a" cx="7" cy="17" r="2" />, "M9 17h6", <circle key="b" cx="17" cy="17" r="2" />]),
+  Shield: Ic(["M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"]),
+  ShieldCheck: Ic(["M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z", "m9 12 2 2 4-4"]),
+  Fingerprint: Ic(["M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4","M14 13.12c0 2.38 0 6.38-1 8.88","M17.29 21.02c.12-.6.43-2.3.5-3.02","M2 12a10 10 0 0 1 18-6","M2 16h.01","M21.8 16c.2-2 .131-5.354 0-6","M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2","M8.65 22c.21-.66.45-1.32.57-2","M9 6.8a6 6 0 0 1 9 5.2v2"]),
+  Camera: Ic(["M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z", <circle key="c" cx="12" cy="13" r="3" />]),
+  Check: Ic(["M20 6 9 17l-5-5"]),
+  Search: Ic([<circle key="c" cx="11" cy="11" r="8" />, "m21 21-4.3-4.3"]),
+  X: Ic(["M18 6 6 18", "M6 6l12 12"]),
+  ArrowRight: Ic(["M5 12h14", "m12 5 7 7-7 7"]),
+  ArrowLeft: Ic(["M19 12H5", "m12 19-7-7 7-7"]),
+  ArrowUp: Ic(["M12 19V5", "m5 12 7-7 7 7"]),
+  ArrowUpRight: Ic(["M7 7h10v10", "M7 17 17 7"]),
+  Copy: Ic([<rect key="r" x="9" y="9" width="13" height="13" rx="2" ry="2" />, "M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"]),
+  Share2: Ic([<circle key="a" cx="18" cy="5" r="3" />, <circle key="b" cx="6" cy="12" r="3" />, <circle key="c" cx="18" cy="19" r="3" />, "m8.59 13.51 6.83 3.98", "m15.41 6.51-6.82 3.98"]),
+  Ticket: Ic(["M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z", "M13 5v2", "M13 17v2", "M13 11v2"]),
+  UserRound: Ic([<circle key="c" cx="12" cy="8" r="5" />, "M20 21a8 8 0 0 0-16 0"]),
+  UserPlus: Ic(["M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", <circle key="c" cx="9" cy="7" r="4" />, "M19 8v6", "M22 11h-6"]),
+  GraduationCap: Ic(["M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z", "M22 10v6", "M6 12.5V16a6 3 0 0 0 12 0v-3.5"]),
+  Loader: Ic(["M12 2v4", "m16.2 7.8 2.9-2.9", "M18 12h4", "m16.2 16.2 2.9 2.9", "M12 18v4", "m4.9 19.1 2.9-2.9", "M2 12h4", "m4.9 4.9 2.9 2.9"]),
+  Plus: Ic(["M5 12h14", "M12 5v14"]),
+  Rocket: Ic(["M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z", "m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z", "M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0", "M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"]),
+  Gift: Ic([<rect key="r" x="3" y="8" width="18" height="4" rx="1" />, "M12 8v13", "M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7", "M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"]),
+  Crown: Ic(["M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z", "M5 21h14"]),
+  Trophy: Ic(["M6 9H4.5a2.5 2.5 0 0 1 0-5H6", "M18 9h1.5a2.5 2.5 0 0 0 0-5H18", "M4 22h16", "M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22", "M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22", "M18 2H6v7a6 6 0 0 0 12 0V2Z"]),
+  MapPin: Ic(["M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0", <circle key="c" cx="12" cy="10" r="3" />]),
+  Mail: Ic([<rect key="r" x="2" y="4" width="20" height="16" rx="2" />, "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"]),
+  Instagram: Ic([<rect key="r" x="2" y="2" width="20" height="20" rx="5" ry="5" />, "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z", "M17.5 6.5h.01"]),
+  Linkedin: Ic(["M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z", <rect key="r" x="2" y="9" width="4" height="12" />, <circle key="c" cx="4" cy="4" r="2" />]),
+};
+    
+
+/* ================= block boundary ================= */
+/* ================================================================== *
+ * Shared waitlist state
+ * ================================================================== */
+const WaitlistContext = createContext(null);
+const useWaitlist = () => {
+  const ctx = useContext(WaitlistContext);
+  if (!ctx) throw new Error("useWaitlist must be used inside <WaitlistProvider>.");
+  return ctx;
+};
+
+function WaitlistProvider({ children }) {
+  const [pass, setPass] = useState(null);
+  const [hydrated, setHydrated] = useState(false);
+  const [queueCount, setQueueCount] = useState(QUEUE.baseCount);
+
+  useEffect(() => { setPass(readPass()); setHydrated(true); }, []);
+
+  useEffect(() => {
+    let timer;
+    const schedule = () => {
+      timer = setTimeout(() => {
+        if (!document.hidden) setQueueCount((c) => c + 1 + Math.floor(Math.random() * 3));
+        schedule();
+      }, 3200 + Math.random() * 4200);
+    };
+    schedule();
+    return () => clearTimeout(timer);
+  }, []);
+
+  const join = useCallback((draft) => {
+    const hub = findHub(draft.hubId);
+    const seed = makeIdentitySeed(draft.fullName, draft.mobile);
+    const record = {
+      version: 1, mode: draft.mode, fullName: draft.fullName.trim(), mobile: draft.mobile.replace(/\D/g, ""),
+      hubId: hub.id, hubLabel: hub.label, hubCode: hub.code, customRoute: draft.customRoute.trim(),
+      institutionalEmail: draft.institutionalEmail.trim(), institutionVerified: isInstitutionalEmail(draft.institutionalEmail),
+      womenOnlyMatching: draft.womenOnlyMatching, passId: makePassId(seed), referralCode: makeReferralCode(seed),
+      basePosition: makeBasePosition(seed), referrals: 0, joinedAt: new Date().toISOString(),
+    };
+    setPass(record); writePass(record); setQueueCount((c) => c + 1);
+    return record;
+  }, []);
+
+  const addReferral = useCallback(() => {
+    setPass((current) => { if (!current) return current; const next = { ...current, referrals: current.referrals + 1 }; writePass(next); return next; });
+  }, []);
+  const reset = useCallback(() => { clearPass(); setPass(null); }, []);
+  const lookup = useCallback((query) => {
+    const stored = pass || readPass();
+    if (!stored) return null;
+    const trimmed = query.trim().toLowerCase();
+    if (!trimmed) return null;
+    const digits = trimmed.replace(/\D/g, "");
+    if (digits.length >= 10 && stored.mobile === digits.slice(-10)) return stored;
+    if (trimmed.includes("@") && stored.institutionalEmail.toLowerCase() === trimmed) return stored;
+    return null;
+  }, [pass]);
+  const focusForm = useCallback(() => {
+    const node = document.getElementById("waitlist");
+    if (node) node.scrollIntoView({ behavior: "smooth", block: "center" });
+    setTimeout(() => { const el = document.getElementById("rydin-name"); if (el) el.focus({ preventScroll: true }); }, 520);
+  }, []);
+
+  const standing = useMemo(() => (pass ? computeStanding(pass) : null), [pass]);
+  const value = { pass, standing, hydrated, queueCount, join, addReferral, reset, lookup, focusForm };
+  return <WaitlistContext.Provider value={value}>{children}</WaitlistContext.Provider>;
+}
+
+/* ================================================================== *
+ * Header + spot lookup
+ * ================================================================== */
+function Header() {
+  const [lookupOpen, setLookupOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  return (
+    <React.Fragment>
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
+        <div className={cn("mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-2xl px-3 py-2.5 ring-hairline backdrop-blur-xl transition-colors sm:px-4", scrolled ? "bg-ink-deep/80 shadow-glass" : "bg-white/[0.03]")}>
+          <a href="#top" className="rounded-lg" aria-label="Rydin — home"><Wordmark /></a>
+          <div className="hidden items-center gap-2 rounded-full bg-white/[0.04] px-3.5 py-1.5 ring-hairline md:inline-flex">
+            <PulseDot />
+            <span className="text-xs font-medium text-zinc-300">Beta Launch: MP Corridor</span>
+            <span className="h-3 w-px bg-white/10" aria-hidden="true"></span>
+            <span className="text-xs text-zinc-500">Batch 1 opening soon</span>
+          </div>
+          <Tactile onClick={() => setLookupOpen(true)} className="inline-flex items-center gap-2 rounded-full bg-white/[0.06] px-3.5 py-2 text-sm font-medium text-zinc-100 ring-hairline transition-colors hover:bg-white/[0.10]">
+            <Icons.Search className="h-4 w-4 text-emerald-300" strokeWidth={2.2} />
+            <span className="hidden sm:inline">Check my spot</span>
+            <span className="sm:hidden">My spot</span>
+          </Tactile>
+        </div>
+      </header>
+      <SpotLookupModal open={lookupOpen} onClose={() => setLookupOpen(false)} />
+    </React.Fragment>
+  );
+}
+
+function SpotLookupModal({ open, onClose }) {
+  const { lookup } = useWaitlist();
+  const [query, setQuery] = useState("");
+  const [result, setResult] = useState("idle");
+  const [record, setRecord] = useState(null);
+  useEffect(() => {
+    if (!open) return;
+    setQuery(""); setResult("idle"); setRecord(null);
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+  }, [open, onClose]);
+  if (!open) return null;
+  const submit = (e) => {
+    e.preventDefault();
+    const found = lookup(query);
+    setRecord(found); setResult(found ? "found" : "missing");
+  };
+  const standing = record ? computeStanding(record) : null;
+  return (
+    <div className="fixed inset-0 z-[60] grid place-items-center p-4" style={{ animation: "none" }}>
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} style={{ opacity: 1 }}></div>
+      <div className="relative w-full max-w-md rounded-3xl bg-ink-raise/90 p-6 shadow-glass ring-hairline backdrop-blur-xl sm:p-7" role="dialog" aria-modal="true" aria-label="Check your waitlist spot">
+        <button onClick={onClose} aria-label="Close" className="absolute right-4 top-4 grid h-8 w-8 place-items-center rounded-full bg-white/[0.05] text-zinc-400 hover:bg-white/10 hover:text-zinc-100">
+          <Icons.X className="h-4 w-4" strokeWidth={2.2} />
+        </button>
+        <h2 className="text-lg font-bold text-zinc-50">Check your spot</h2>
+        <p className="mt-1 text-sm text-zinc-400">Enter the mobile number or email you joined with.</p>
+        <form onSubmit={submit} className="mt-5">
+          <input value={query} onChange={(e) => setQuery(e.target.value)} autoFocus placeholder="98765 43210 or you@campus.ac.in"
+            className="w-full rounded-xl bg-black/30 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-600 ring-hairline focus:ring-2 focus:ring-emerald-400/70" />
+          <Tactile type="submit" className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-emerald-400 to-emerald-600 px-4 py-3 text-sm font-semibold text-white shadow-emerald-sm">
+            <Icons.Search className="h-4 w-4" strokeWidth={2.3} /> Find my pass
+          </Tactile>
+        </form>
+        {result === "found" && standing && (
+          <div className="mt-5 rounded-2xl bg-emerald-500/[0.08] p-4 ring-1 ring-emerald-400/20">
+            <p className="text-xs text-emerald-200/80">Pass {record.passId}</p>
+            <p className="mt-1 font-mono text-3xl font-bold text-emerald-200" data-numeric>#{formatCount(standing.currentPosition)}</p>
+            <p className="mt-1 text-xs text-zinc-400">{passRoute(record)} · joined {passIssuedOn(record)}</p>
+          </div>
+        )}
+        {result === "missing" && (
+          <p className="mt-5 rounded-2xl bg-black/25 p-4 text-xs leading-relaxed text-zinc-400 ring-hairline">
+            No pass found for that. Passes in this preview are stored in this browser only, so a pass created on another device won't appear here.
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+    
+
+/* ================= block boundary ================= */
+/* ================================================================== *
+ * Hero + interactive waitlist card
+ * ================================================================== */
+const MODES = [
+  { id: "passenger", label: "I need a ride", sub: "Daily commuter", icon: Icons.UserRound },
+  { id: "driver", label: "I have empty seats", sub: "Vehicle owner", icon: Icons.Car },
+];
+const STEPS = ["You", "Route", "Priority"];
+
+function Hero() {
+  return (
+    <section id="top" className="relative overflow-hidden px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pb-24 lg:pt-40">
+      <GlowOrb className="left-[-10%] top-[-6%] h-[38rem] w-[38rem]" />
+      <GlowOrb className="right-[-12%] top-[18%] h-[30rem] w-[30rem]" tone="amber" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
+        <div className="max-w-xl">
+          <Eyebrow>
+            <Icons.Zap className="h-3.5 w-3.5 text-emerald-300" fill="currentColor" strokeWidth={0} />
+            Zero surge <Dot /> 100% verified peers <Dot /> Save up to 50%
+          </Eyebrow>
+          <h1 className="mt-5 text-display-lg font-bold text-balance text-zinc-50">
+            Daily commuting is broken.{" "}
+            <span className="bg-gradient-to-br from-emerald-300 to-emerald-500 bg-clip-text text-transparent">We built the cure.</span>
+          </h1>
+          <p className="mt-5 max-w-lg text-base leading-relaxed text-zinc-400 text-pretty sm:text-lg">
+            Stop paying surge fares to commercial cabs. Connect with verified students and professionals travelling your exact route — split the fuel, share the seats, travel safely.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+            <TrustPoint icon={Icons.Fuel} label="Fuel cost split, not fares" />
+            <TrustPoint icon={Icons.BadgeCheck} label="Aadhaar + selfie verified" />
+            <TrustPoint icon={Icons.Zap} label="No surge, ever" />
+          </div>
+        </div>
+        <div className="relative">
+          <div aria-hidden="true" className="absolute -inset-4 -z-10 rounded-[32px] bg-gradient-to-b from-emerald-500/10 to-transparent blur-2xl"></div>
+          <WaitlistCard />
+        </div>
+      </div>
+    </section>
+  );
+}
+function TrustPoint({ icon: Icon, label }) {
+  return <span className="inline-flex items-center gap-2 text-sm text-zinc-400"><Icon className="h-4 w-4 text-emerald-400" strokeWidth={2.1} />{label}</span>;
+}
+
+function WaitlistCard() {
+  const { pass, standing, hydrated, join, addReferral, reset } = useWaitlist();
+  const [draft, setDraft] = useState(EMPTY_DRAFT);
+  const [step, setStep] = useState(0);
+  const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+
+  const set = (key, value) => {
+    setDraft((d) => ({ ...d, [key]: value }));
+    setErrors((e) => { if (!(key in e)) return e; const next = { ...e }; delete next[key]; return next; });
+  };
+  const goNext = () => {
+    const stepErrors = validateStep(step, draft);
+    if (hasErrors(stepErrors)) { setErrors(stepErrors); return; }
+    setErrors({}); setStep((s) => Math.min(STEPS.length - 1, s + 1));
+  };
+  const goBack = () => { setErrors({}); setStep((s) => Math.max(0, s - 1)); };
+  const submit = async () => {
+    const all = validateAll(draft);
+    if (hasErrors(all)) {
+      setErrors(all);
+      const firstBad = [0, 1, 2].find((s) => hasErrors(validateStep(s, draft)));
+      if (firstBad !== undefined) setStep(firstBad);
+      return;
+    }
+    setSubmitting(true);
+    await new Promise((r) => setTimeout(r, 620));
+    join(draft);
+    setSubmitting(false);
+  };
+
+  if (!hydrated) return <CardSkeleton />;
+  if (pass && standing) return <QueuePass pass={pass} standing={standing} addReferral={addReferral} reset={reset} />;
+
+  const hub = findHub(draft.hubId);
+  const emailIsInstitutional = draft.institutionalEmail.trim() && isInstitutionalEmail(draft.institutionalEmail);
+
+  return (
+    <div id="waitlist" className="relative w-full scroll-mt-28">
+      <div className="overflow-hidden rounded-[28px] bg-white/[0.03] shadow-glass ring-hairline backdrop-blur-xl">
+        {/* Mode toggle */}
+        <div className="p-5 pb-0 sm:p-6 sm:pb-0">
+          <div className="grid grid-cols-2 gap-1.5 rounded-2xl bg-black/30 p-1.5 ring-hairline">
+            {MODES.map((m) => {
+              const active = draft.mode === m.id;
+              return (
+                <Tactile key={m.id} onClick={() => set("mode", m.id)} aria-pressed={active}
+                  className="relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5">
+                  {active && <span className="absolute inset-0 rounded-xl bg-gradient-to-b from-emerald-500/90 to-emerald-600 shadow-emerald-sm"></span>}
+                  <m.icon className={cn("relative h-4 w-4 shrink-0", active ? "text-white" : "text-zinc-500")} strokeWidth={2.2} />
+                  <span className="relative text-center leading-tight">
+                    <span className={cn("block text-xs font-semibold", active ? "text-white" : "text-zinc-300")}>{m.label}</span>
+                    <span className={cn("block text-[10px]", active ? "text-emerald-50/80" : "text-zinc-500")}>{m.sub}</span>
+                  </span>
+                </Tactile>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Step track (dashed road) */}
+        <div className="px-5 pt-5 sm:px-6">
+          <div className="flex items-center gap-2">
+            {STEPS.map((label, i) => (
+              <React.Fragment key={label}>
+                <span className={cn("flex items-center gap-1.5 text-[11px] font-medium", i === step ? "text-emerald-300" : i < step ? "text-zinc-300" : "text-zinc-600")}>
+                  <span className={cn("grid h-5 w-5 place-items-center rounded-full font-mono text-[10px]", i === step ? "bg-emerald-500 text-white" : i < step ? "bg-emerald-500/20 text-emerald-300" : "bg-white/5 text-zinc-500")}>
+                    {i < step ? <Icons.Check className="h-3 w-3" strokeWidth={3} /> : i + 1}
+                  </span>
+                  <span className="hidden sm:inline">{label}</span>
+                </span>
+                {i < STEPS.length - 1 && <span className={cn("h-px flex-1", i < step ? "road-dash" : "road-dash-muted")}></span>}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+
+        {/* Steps */}
+        <div className="p-5 sm:p-6">
+          {step === 0 && (
+            <div className="space-y-4">
+              <Field label="Full name" htmlFor="rydin-name" error={errors.fullName}>
+                <input id="rydin-name" value={draft.fullName} onChange={(e) => set("fullName", e.target.value)}
+                  placeholder="As it appears on your ID" className={inputClass(!!errors.fullName)} />
+              </Field>
+              <Field label="Mobile number" htmlFor="rydin-mobile" error={errors.mobile}>
+                <div className="flex items-stretch overflow-hidden rounded-xl bg-black/30 ring-hairline focus-within:ring-2 focus-within:ring-emerald-400/70">
+                  <span className="grid place-items-center border-r border-white/10 px-3 font-mono text-sm text-zinc-400">+91</span>
+                  <input id="rydin-mobile" inputMode="numeric" value={formatMobile(draft.mobile)}
+                    onChange={(e) => set("mobile", digitsOnly(e.target.value))}
+                    placeholder="98765 43210" className="w-full bg-transparent px-3 py-3 font-mono text-sm text-zinc-100 placeholder:text-zinc-600 focus:outline-none" />
+                </div>
+              </Field>
+            </div>
+          )}
+
+          {step === 1 && (
+            <div className="space-y-4">
+              <div>
+                <p className="mb-2 text-xs font-medium text-zinc-400">Where do you commute?</p>
+                <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3">
+                  {HUBS.map((h) => {
+                    const active = draft.hubId === h.id;
+                    return (
+                      <Tactile key={h.id} onClick={() => set("hubId", h.id)} aria-pressed={active}
+                        className={cn("rounded-xl px-2.5 py-2 text-left ring-1 transition-colors", active ? "bg-emerald-500/15 ring-emerald-400/40" : "bg-black/20 ring-white/10 hover:bg-white/[0.04]")}>
+                        <span className={cn("block font-mono text-[10px] font-semibold", active ? "text-emerald-300" : "text-zinc-500")}>{h.code}</span>
+                        <span className={cn("mt-0.5 block text-[11px] leading-tight", active ? "text-zinc-100" : "text-zinc-400")}>{h.label}</span>
+                      </Tactile>
+                    );
+                  })}
+                </div>
+                <p className="mt-2.5 flex items-start gap-1.5 text-[11px] leading-relaxed text-zinc-500">
+                  <Icons.MapPin className="mt-px h-3 w-3 shrink-0 text-emerald-400" strokeWidth={2.2} />{hub.detail}
+                </p>
+              </div>
+              {draft.hubId === "custom" && (
+                <Field label="Your route" htmlFor="rydin-route" error={errors.customRoute}>
+                  <input id="rydin-route" value={draft.customRoute} onChange={(e) => set("customRoute", e.target.value)}
+                    placeholder="e.g. Vijay Nagar → Rau" className={inputClass(!!errors.customRoute)} />
+                </Field>
+              )}
+            </div>
+          )}
+
+          {step === 2 && (
+            <div className="space-y-4">
+              <Field label="Campus or work email" sub="Optional — unlocks a priority jump" htmlFor="rydin-email" error={errors.institutionalEmail}>
+                <input id="rydin-email" type="email" value={draft.institutionalEmail} onChange={(e) => set("institutionalEmail", e.target.value)}
+                  placeholder="you@college.ac.in" className={inputClass(!!errors.institutionalEmail)} />
+              </Field>
+              {emailIsInstitutional && (
+                <p className="flex items-center gap-2 rounded-xl bg-emerald-500/[0.08] px-3 py-2.5 text-[11px] font-medium text-emerald-200 ring-1 ring-emerald-400/20">
+                  <Icons.ShieldCheck className="h-4 w-4 shrink-0" strokeWidth={2.2} />
+                  Verified institution — you'll skip {formatCount(QUEUE.institutionalJump)} spots.
+                </p>
+              )}
+              <label className="flex items-center justify-between gap-3 rounded-xl bg-black/20 px-3.5 py-3 ring-hairline">
+                <span className="flex items-center gap-2.5">
+                  <Icons.Shield className="h-4 w-4 text-emerald-300" strokeWidth={2.2} />
+                  <span>
+                    <span className="block text-xs font-semibold text-zinc-100">Women-only matching</span>
+                    <span className="block text-[11px] text-zinc-500">Match only with verified women</span>
+                  </span>
+                </span>
+                <button type="button" role="switch" aria-checked={draft.womenOnlyMatching} aria-label="Women-only matching"
+                  onClick={() => set("womenOnlyMatching", !draft.womenOnlyMatching)}
+                  className={cn("relative h-6 w-11 shrink-0 rounded-full transition-colors", draft.womenOnlyMatching ? "bg-emerald-500" : "bg-white/15")}>
+                  <span className={cn("absolute top-0.5 h-5 w-5 rounded-full bg-white shadow transition-all", draft.womenOnlyMatching ? "left-[22px]" : "left-0.5")}></span>
+                </button>
+              </label>
+            </div>
+          )}
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-3 border-t border-white/[0.07] p-5 sm:p-6">
+          {step > 0 && (
+            <Tactile onClick={goBack} className="inline-flex items-center gap-1.5 rounded-xl bg-white/[0.05] px-4 py-3 text-sm font-medium text-zinc-200 ring-hairline hover:bg-white/[0.09]">
+              <Icons.ArrowLeft className="h-4 w-4" strokeWidth={2.2} /> Back
+            </Tactile>
+          )}
+          {step < STEPS.length - 1 ? (
+            <Tactile onClick={goNext} className="relative ml-auto inline-flex items-center gap-1.5 overflow-hidden rounded-xl bg-gradient-to-b from-emerald-400 to-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-emerald-sm">
+              Continue <Icons.ArrowRight className="h-4 w-4" strokeWidth={2.4} />
+            </Tactile>
+          ) : (
+            <Tactile onClick={submit} disabled={submitting} className="relative ml-auto inline-flex items-center gap-2 overflow-hidden rounded-xl bg-gradient-to-b from-emerald-400 to-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-emerald disabled:opacity-80">
+              <span className="absolute inset-0 -translate-x-full cta-sheen animate-shimmer" aria-hidden="true"></span>
+              {submitting ? <React.Fragment><Icons.Loader className="relative h-4 w-4 animate-spin" strokeWidth={2.6} /> Reserving…</React.Fragment>
+                : <React.Fragment>Claim my Queue Pass <Icons.ArrowRight className="relative h-4 w-4" strokeWidth={2.4} /></React.Fragment>}
+            </Tactile>
+          )}
+        </div>
+      </div>
+      <p className="mt-3 text-center text-[11px] text-zinc-600">No card, no spam. Your spot is stored on this device for the preview.</p>
+    </div>
+  );
+}
+
+const inputClass = (invalid) => cn(
+  "w-full rounded-xl bg-black/30 px-3.5 py-3 text-sm text-zinc-100 placeholder:text-zinc-600 ring-hairline focus:outline-none focus:ring-2",
+  invalid ? "ring-1 ring-red-400/60 focus:ring-red-400/70" : "focus:ring-emerald-400/70"
+);
+function Field({ label, sub, htmlFor, error, children }) {
+  return (
+    <div>
+      <label htmlFor={htmlFor} className="mb-1.5 flex items-baseline justify-between">
+        <span className="text-xs font-medium text-zinc-400">{label}</span>
+        {sub && <span className="text-[10px] text-zinc-600">{sub}</span>}
+      </label>
+      {children}
+      {error && <p className="mt-1.5 text-[11px] text-red-300">{error}</p>}
+    </div>
+  );
+}
+function CardSkeleton() {
+  return <div id="waitlist" className="min-h-[30rem] w-full animate-pulse rounded-[28px] bg-white/[0.03] ring-hairline"></div>;
+}
+    
+
+/* ================= block boundary ================= */
+/* ================================================================== *
+ * Queue Pass — the ticket stub
+ * ================================================================== */
+function QueuePass({ pass, standing, addReferral, reset }) {
+  const [copied, setCopied] = useState(false);
+  const link = buildReferralLink(pass.referralCode);
+  const tiers = computeTierProgress(pass.referrals);
+  const maxReferrals = REWARD_TIERS[REWARD_TIERS.length - 1].referrals;
+
+  const copy = async () => {
+    try {
+      if (navigator.share) { await navigator.share({ title: "Join me on Rydin", url: link }); return; }
+    } catch {}
+    try { await navigator.clipboard.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1800); }
+    catch {
+      const el = document.getElementById("rydin-referral-link");
+      if (el) { const r = document.createRange(); r.selectNode(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+    }
+  };
+
+  return (
+    <div id="waitlist" className="relative w-full scroll-mt-28">
+      <div className="overflow-hidden rounded-[28px] bg-white/[0.04] shadow-glass ring-hairline backdrop-blur-xl">
+        {/* Upper stub */}
+        <div className="p-6 sm:p-7">
+          <div className="flex items-center justify-between">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-emerald-300 ring-1 ring-emerald-400/25">
+              <Icons.Ticket className="h-3 w-3" strokeWidth={2.4} />{pass.mode === "driver" ? "Driver pass" : "Rider pass"}
+            </span>
+            <span className="font-mono text-xs text-zinc-500">{pass.passId}</span>
+          </div>
+          <p className="mt-5 text-xs font-medium text-zinc-400">Your position in line</p>
+          <p className="mt-1 font-mono text-5xl font-bold tracking-tight text-zinc-50 sm:text-6xl" data-numeric>
+            #<AnimatedNumber value={standing.currentPosition} durationMs={900} />
+          </p>
+          {standing.totalJump > 0 && (
+            <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 px-2.5 py-1 text-[11px] font-semibold text-amber-300 ring-1 ring-amber-400/20">
+              <Icons.TrendingUp className="h-3.5 w-3.5" strokeWidth={2.4} /> Skipped {formatCount(standing.totalJump)} spots
+            </span>
+          )}
+          <p className="mt-3 text-[11px] leading-relaxed text-zinc-500">
+            Base position {formatCount(standing.basePosition)}
+            {standing.institutionalJump > 0 && <React.Fragment> − {formatCount(standing.institutionalJump)} institution</React.Fragment>}
+            {standing.referralJump > 0 && <React.Fragment> − {formatCount(standing.referralJump)} referrals</React.Fragment>}.
+          </p>
+          <dl className="mt-5 grid grid-cols-2 gap-x-4 gap-y-3">
+            <PassField label="Rider" value={pass.fullName} />
+            <PassField label="Route" value={passRoute(pass)} mono={pass.hubCode} />
+            <PassField label="Mobile" value={`+91 ${formatMobile(pass.mobile)}`} />
+            <PassField label="Issued" value={passIssuedOn(pass)} />
+          </dl>
+          <div className="mt-5 flex flex-wrap gap-2">
+            <VerBadge icon={Icons.Fingerprint} label="Aadhaar pending" />
+            {pass.institutionVerified && <VerBadge icon={Icons.ShieldCheck} label="Institution verified" active />}
+            {pass.womenOnlyMatching && <VerBadge icon={Icons.Shield} label="Women-only" active />}
+          </div>
+        </div>
+
+        {/* Tear line */}
+        <div className="relative h-6">
+          <span className="stub-notch stub-notch-left top-1/2 -translate-y-1/2"></span>
+          <span className="stub-notch stub-notch-right top-1/2 -translate-y-1/2"></span>
+          <div className="absolute inset-x-5 top-1/2 h-px -translate-y-1/2 stub-perforation"></div>
+        </div>
+
+        {/* Lower stub */}
+        <div className="p-6 pt-5 sm:p-7 sm:pt-5">
+          <p className="text-xs font-medium text-zinc-400">Invite peers on your route to move up</p>
+          <div className="mt-2 flex items-stretch gap-2">
+            <code id="rydin-referral-link" className="flex-1 truncate rounded-xl bg-black/30 px-3.5 py-3 font-mono text-xs text-emerald-200 ring-hairline">{link}</code>
+            <Tactile onClick={copy} className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-white/[0.06] px-3.5 py-3 text-xs font-semibold text-zinc-100 ring-hairline hover:bg-white/[0.10]">
+              {copied ? <React.Fragment><Icons.Check className="h-4 w-4 text-emerald-300" strokeWidth={2.6} /> Copied</React.Fragment>
+                : <React.Fragment><Icons.Share2 className="h-4 w-4 text-emerald-300" strokeWidth={2.2} /> Share</React.Fragment>}
+            </Tactile>
+          </div>
+
+          {/* Tier rail */}
+          <div className="mt-5">
+            <div className="flex items-baseline justify-between">
+              <p className="text-[11px] font-medium text-zinc-400">{pass.referrals}/{maxReferrals} invites</p>
+              <p className="font-mono text-[11px] text-amber-300/90">+{formatCount(QUEUE.spotsPerReferral)} spots each</p>
+            </div>
+            <div className="relative mt-2 h-1.5 rounded-full bg-white/[0.08]">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-500" style={{ width: `${tiers.percent}%` }}></div>
+              {REWARD_TIERS.map((t) => (
+                <span key={t.referrals} title={t.title}
+                  className={cn("absolute top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full ring-2 ring-ink-deep", pass.referrals >= t.referrals ? "bg-emerald-300" : "bg-white/20")}
+                  style={{ left: `${(t.referrals / maxReferrals) * 100}%` }}></span>
+              ))}
+            </div>
+            <p className="mt-2 text-[11px] text-zinc-500">
+              {tiers.next ? <React.Fragment>{tiers.remaining} more to unlock <span className="text-zinc-300">{tiers.next.title}</span>.</React.Fragment>
+                : <React.Fragment>Every tier unlocked — you're a <span className="text-emerald-300">Founding Member</span>.</React.Fragment>}
+            </p>
+          </div>
+
+          <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-white/[0.07] pt-4">
+            <Tactile onClick={addReferral} className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-500/15 px-3.5 py-2.5 text-xs font-semibold text-emerald-200 ring-1 ring-emerald-400/25 hover:bg-emerald-500/20">
+              <Icons.UserPlus className="h-4 w-4" strokeWidth={2.3} /> Simulate an invite
+            </Tactile>
+            <button onClick={reset} className="ml-auto text-[11px] text-zinc-500 underline-offset-4 hover:text-zinc-300 hover:underline">Leave the queue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+function PassField({ label, value, mono }) {
+  return (
+    <div>
+      <dt className="text-[10px] uppercase tracking-wide text-zinc-600">{label}</dt>
+      <dd className="mt-0.5 flex items-center gap-1.5 text-sm text-zinc-200">
+        {mono && <span className="font-mono text-[10px] text-emerald-300">{mono}</span>}
+        <span className="truncate">{value}</span>
+      </dd>
+    </div>
+  );
+}
+function VerBadge({ icon: Icon, label, active }) {
+  return (
+    <span className={cn("inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-medium ring-1", active ? "bg-emerald-500/10 text-emerald-300 ring-emerald-400/25" : "bg-white/[0.04] text-zinc-500 ring-white/10")}>
+      <Icon className="h-3 w-3" strokeWidth={2.3} />{label}
+    </span>
+  );
+}
+    
+
+/* ================= block boundary ================= */
+/* ================================================================== *
+ * Telemetry, Savings calculator
+ * ================================================================== */
+function TelemetryStrip() {
+  const { queueCount } = useWaitlist();
+  const pooled = projectedPooledSavings(queueCount);
+  return (
+    <section className="relative px-4 py-10 sm:px-6 lg:py-14">
+      <Reveal className="mx-auto max-w-6xl">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl bg-white/[0.06] lg:grid-cols-4">
+          <TeleCell icon={<Icons.Users className="h-4 w-4" strokeWidth={2.2} />} label="Commuters in queue" live value={<AnimatedNumber value={queueCount} />} />
+          <TeleCell icon={<Icons.Fuel className="h-4 w-4" strokeWidth={2.2} />} label="Projected monthly fuel savings" tone="amber" value={<AnimatedNumber value={pooled} format={formatINR} />} />
+          <TeleCell icon={<Icons.Route className="h-4 w-4" strokeWidth={2.2} />} label="Active corridors" value={<AnimatedNumber value={QUEUE.activeCorridors} />} footnote="Indore ⇄ Bhopal + campus micro-routes" />
+          <TeleCell icon={<Icons.BadgeCheck className="h-4 w-4" strokeWidth={2.2} />} label="Government ID verified" value={<span className="font-mono">100%</span>} footnote="No exceptions, no skippable steps" />
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+function TeleCell({ icon, label, value, footnote, live, tone = "emerald" }) {
+  return (
+    <div className="bg-ink-deep/60 p-5 backdrop-blur-xl sm:p-6">
+      <div className="flex items-center gap-2">
+        <span className={tone === "amber" ? "text-amber-300/90" : "text-emerald-300/90"}>{icon}</span>
+        {live && <PulseDot className="ml-auto" />}
+      </div>
+      <p className={cn("mt-3 font-mono text-2xl font-bold tracking-tight sm:text-3xl", tone === "amber" ? "text-amber-200" : "text-zinc-50")} data-numeric>{value}</p>
+      <p className="mt-1.5 text-xs font-medium text-zinc-400">{label}</p>
+      {footnote && <p className="mt-1 text-[11px] leading-snug text-zinc-600">{footnote}</p>}
+    </div>
+  );
+}
+
+function SavingsCalculator() {
+  const [distance, setDistance] = useState(FARE_MODEL.distance.default);
+  const [frequency, setFrequency] = useState(5);
+  const [vehicle, setVehicle] = useState("four-wheeler");
+  const [seats, setSeats] = useState(FARE_MODEL.defaultSeats);
+  const seatOptions = availableSeats(vehicle);
+  const effectiveSeats = normaliseSeats(vehicle, seats);
+  const result = useMemo(() => computeSavings(distance, frequency, vehicle, effectiveSeats), [distance, frequency, vehicle, effectiveSeats]);
+  const pct = (distance - FARE_MODEL.distance.min) / (FARE_MODEL.distance.max - FARE_MODEL.distance.min);
+
+  return (
+    <section id="savings" className="relative px-4 py-16 sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-6xl">
+        <SectionLabel index="02" title="Run your numbers" />
+        <Reveal>
+          <h2 className="mt-6 max-w-2xl text-display-sm font-bold text-balance text-zinc-50">What your commute actually costs you.</h2>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">Move the slider to your one-way distance. Everything updates against two honest baselines.</p>
+        </Reveal>
+        <div className="mt-10 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          {/* Controls */}
+          <Reveal className="rounded-3xl bg-white/[0.03] p-6 ring-hairline backdrop-blur-xl sm:p-7">
+            <div>
+              <div className="flex items-baseline justify-between">
+                <label htmlFor="distance" className="text-xs font-medium text-zinc-400">Your one-way travel distance</label>
+                <span className="font-mono text-sm font-semibold text-emerald-300" data-numeric>{distance} km</span>
+              </div>
+              <input id="distance" type="range" min={FARE_MODEL.distance.min} max={FARE_MODEL.distance.max} step={FARE_MODEL.distance.step}
+                value={distance} onChange={(e) => setDistance(Number(e.target.value))} className="mt-3"
+                style={{ background: `linear-gradient(to right, rgba(16,185,129,0.65) ${pct * 100}%, rgba(255,255,255,0.09) ${pct * 100}%)`, borderRadius: 999, height: 6 }} />
+              <div className="mt-1.5 flex justify-between font-mono text-[10px] text-zinc-600"><span>{FARE_MODEL.distance.min} km</span><span>{FARE_MODEL.distance.max} km</span></div>
+            </div>
+            <div className="mt-6">
+              <p className="mb-2 text-xs font-medium text-zinc-400">Commute frequency</p>
+              <Segmented options={[{ id: 5, label: "5 days", sub: "Weekdays" }, { id: 7, label: "7 days", sub: "All week" }]} value={frequency} onChange={(v) => setFrequency(v)} />
+            </div>
+            <div className="mt-6">
+              <p className="mb-2 text-xs font-medium text-zinc-400">Vehicle type</p>
+              <Segmented options={[{ id: "two-wheeler", label: "Two-wheeler", sub: "Bike", icon: Icons.Bike }, { id: "four-wheeler", label: "Four-wheeler", sub: "Car", icon: Icons.Car }]}
+                value={vehicle} onChange={(v) => { setVehicle(v); setSeats(normaliseSeats(v, seats)); }} />
+            </div>
+            {seatOptions.length > 1 && (
+              <div className="mt-6">
+                <p className="mb-2 flex items-center gap-1.5 text-xs font-medium text-zinc-400"><Icons.Users className="h-3.5 w-3.5 text-emerald-300" /> People sharing the fuel bill</p>
+                <Segmented options={seatOptions.map((n) => ({ id: n, label: `${n}`, sub: n === 2 ? "You + 1" : `You + ${n - 1}` }))} value={effectiveSeats} onChange={(v) => setSeats(Number(v))} />
+              </div>
+            )}
+          </Reveal>
+          {/* Output */}
+          <div className="flex flex-col gap-4">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Reveal delay={0.05} className="relative rounded-3xl bg-white/[0.03] p-6 ring-hairline backdrop-blur-xl">
+                <p className="text-xs font-medium text-zinc-400">Commercial cabs / taxis</p>
+                <p className="mt-3 font-mono text-3xl font-bold tracking-tight text-zinc-100" data-numeric><AnimatedNumber value={result.commercialMonthly} format={formatINR} durationMs={520} /></p>
+                <p className="mt-1 text-[11px] text-zinc-600">per month</p>
+                <p className="mt-4 text-[11px] leading-snug text-zinc-500">{FARE_MODEL.commercial[vehicle].label} at published rates. No surge multiplier applied.</p>
+              </Reveal>
+              <Reveal delay={0.1} className="relative overflow-hidden rounded-3xl bg-emerald-500/[0.07] p-6 ring-1 ring-emerald-400/25 backdrop-blur-xl">
+                <div aria-hidden="true" className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-emerald-500/20 blur-3xl"></div>
+                <p className="relative text-xs font-medium text-emerald-200/90">With Rydin cost-sharing</p>
+                <p className="relative mt-3 font-mono text-3xl font-bold tracking-tight text-emerald-200" data-numeric><AnimatedNumber value={result.rydinMonthly} format={formatINR} durationMs={520} /></p>
+                <p className="relative mt-1 text-[11px] text-emerald-300/60">per month</p>
+                <p className="relative mt-4 text-[11px] leading-snug text-emerald-100/60">Your share of fuel across {effectiveSeats} people, plus a flat ₹{FARE_MODEL.vehicle[vehicle].feePerTrip}/trip fee.</p>
+              </Reveal>
+            </div>
+            <Reveal delay={0.15} className="rounded-3xl bg-gradient-to-br from-emerald-500/15 to-emerald-500/[0.04] p-6 ring-1 ring-emerald-400/25 backdrop-blur-xl sm:p-7">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="flex items-center gap-1.5 text-xs font-medium text-emerald-200/90"><Icons.TrendingDown className="h-3.5 w-3.5" strokeWidth={2.4} /> You pocket</p>
+                  <p className="mt-1.5 font-mono text-4xl font-bold tracking-tight text-zinc-50 sm:text-5xl" data-numeric><AnimatedNumber value={result.savedVsCommercialYearly} format={formatINR} durationMs={620} /></p>
+                  <p className="mt-1 text-xs text-emerald-200/70">a year, versus cabs</p>
+                </div>
+                <div className="rounded-2xl bg-black/25 px-4 py-3 ring-hairline">
+                  {result.costsMoreThanSolo ? (
+                    <React.Fragment>
+                      <p className="font-mono text-2xl font-bold text-amber-300">—</p>
+                      <p className="mt-0.5 text-[11px] leading-snug text-zinc-400">cheaper to just<br />ride this one alone</p>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment>
+                      <p className="font-mono text-2xl font-bold text-emerald-300" data-numeric><AnimatedNumber value={result.savedVsSoloPercent} format={(n) => `${Math.round(n)}%`} durationMs={520} /></p>
+                      <p className="mt-0.5 text-[11px] leading-snug text-zinc-400">cheaper than driving<br />this commute solo</p>
+                    </React.Fragment>
+                  )}
+                </div>
+              </div>
+              {result.costsMoreThanSolo ? (
+                <p className="mt-5 flex items-start gap-2 rounded-xl bg-black/25 px-3.5 py-3 text-[11px] leading-relaxed text-amber-200/90 ring-1 ring-amber-400/20">
+                  <Icons.Info className="mt-px h-3.5 w-3.5 shrink-0" strokeWidth={2.3} />
+                  <span>Below {result.soloBreakEvenKm.toFixed(1)} km on a {FARE_MODEL.vehicle[vehicle].shortLabel.toLowerCase()} the flat ₹{FARE_MODEL.vehicle[vehicle].feePerTrip} fee costs more than the fuel it splits, so riding alone is cheaper. Still far less than a {FARE_MODEL.commercial[vehicle].label.toLowerCase()} — but we'd rather tell you than round it up to zero.</span>
+                </p>
+              ) : result.isLowValue ? (
+                <p className="mt-5 flex items-start gap-2 rounded-xl bg-black/25 px-3.5 py-3 text-[11px] leading-relaxed text-amber-200/90 ring-1 ring-amber-400/20">
+                  <Icons.Info className="mt-px h-3.5 w-3.5 shrink-0" strokeWidth={2.3} />
+                  <span>At this distance the flat per-trip fee is most of what you'd pay, so sharing saves little against driving yourself. Worth it against a cab, not worth the coordination otherwise.</span>
+                </p>
+              ) : null}
+            </Reveal>
+            <p className="px-1 text-[11px] leading-relaxed text-zinc-600">
+              Estimates, not quotes. Assumes ₹{FARE_MODEL.petrolPerLitre}/L petrol, {FARE_MODEL.vehicle[vehicle].mileage} km/L for a {FARE_MODEL.vehicle[vehicle].shortLabel.toLowerCase()}, {result.tripsPerDay} trips a day and {result.daysPerMonth} commute days a month. Your share works out to about ₹{result.rydinPerKm.toFixed(2)}/km. Driving solo the same distance would cost {formatINR(result.soloMonthly)}/month in fuel alone.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+function Segmented({ options, value, onChange }) {
+  return (
+    <div className="grid gap-1.5 rounded-2xl bg-black/30 p-1.5 ring-hairline" style={{ gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` }} role="group">
+      {options.map((opt) => {
+        const active = opt.id === value;
+        const Icon = opt.icon;
+        return (
+          <Tactile key={String(opt.id)} onClick={() => onChange(opt.id)} aria-pressed={active}
+            className="relative flex items-center justify-center gap-2 rounded-xl px-3 py-2.5">
+            {active && <span className="absolute inset-0 rounded-xl bg-gradient-to-b from-emerald-500/90 to-emerald-600 shadow-emerald-sm"></span>}
+            {Icon && <Icon className={cn("relative h-4 w-4 shrink-0", active ? "text-white" : "text-zinc-500")} strokeWidth={2.2} />}
+            <span className="relative text-center leading-tight">
+              <span className={cn("block text-xs font-semibold", active ? "text-white" : "text-zinc-300")}>{opt.label}</span>
+              {opt.sub && <span className={cn("block text-[10px]", active ? "text-emerald-50/80" : "text-zinc-500")}>{opt.sub}</span>}
+            </span>
+          </Tactile>
+        );
+      })}
+    </div>
+  );
+}
+    
+
+/* ================= block boundary ================= */
+/* ================================================================== *
+ * Bento grid, Rewards, FAQ, Footer, Sticky CTA
+ * ================================================================== */
+function BentoGrid() {
+  return (
+    <section id="why" className="relative px-4 py-16 sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-6xl">
+        <SectionLabel index="01" title="Why it's different" />
+        <Reveal><h2 className="mt-6 max-w-2xl text-display-sm font-bold text-balance text-zinc-50">Not a cheaper taxi. A different thing entirely.</h2></Reveal>
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          {/* Block 1 */}
+          <Reveal className="lg:col-span-2 lg:row-span-2">
+            <div className="flex h-full flex-col rounded-3xl bg-white/[0.03] p-7 ring-hairline backdrop-blur-xl sm:p-8">
+              <Icons.Fuel className="h-6 w-6 text-emerald-300" strokeWidth={2} />
+              <h3 className="mt-4 text-xl font-bold text-zinc-50">Direct fuel cost sharing. Zero middleman commissions.</h3>
+              <p className="mt-2 max-w-md text-sm leading-relaxed text-zinc-400">Commercial platforms take roughly a quarter of every fare. Rydin takes a flat ₹4–₹8 per trip — only enough to keep verification and matching running.</p>
+              <div className="mt-auto pt-8"><FeeComparison /></div>
+            </div>
+          </Reveal>
+          {/* Block 2 */}
+          <Reveal delay={0.05}>
+            <div className="flex h-full flex-col rounded-3xl bg-white/[0.03] p-7 ring-hairline backdrop-blur-xl">
+              <Icons.ShieldCheck className="h-6 w-6 text-emerald-300" strokeWidth={2} />
+              <h3 className="mt-4 text-lg font-bold text-zinc-50">100% verified peers</h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-400">Every account clears mandatory government-ID KYC.</p>
+              <div className="mt-5"><KycChecklist /></div>
+            </div>
+          </Reveal>
+          {/* Block 3 */}
+          <Reveal delay={0.1}>
+            <div className="flex h-full flex-col rounded-3xl bg-white/[0.03] p-7 ring-hairline backdrop-blur-xl">
+              <Icons.Shield className="h-6 w-6 text-emerald-300" strokeWidth={2} />
+              <h3 className="mt-4 text-lg font-bold text-zinc-50">Women-only matching</h3>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-400">Enforced in the matching layer against verified gender — not left to preference or self-reporting.</p>
+            </div>
+          </Reveal>
+          {/* Block 4 */}
+          <Reveal delay={0.05} className="sm:col-span-2 lg:col-span-3">
+            <div className="grid gap-6 rounded-3xl bg-white/[0.03] p-7 ring-hairline backdrop-blur-xl sm:grid-cols-[1fr_auto] sm:items-center sm:p-8">
+              <div>
+                <Icons.MapPin className="h-6 w-6 text-emerald-300" strokeWidth={2} />
+                <h3 className="mt-4 text-lg font-bold text-zinc-50">Smart hyper-local matching</h3>
+                <p className="mt-2 max-w-md text-sm leading-relaxed text-zinc-400">Matches are drawn from a tight radius around your actual route, so a shared ride never means a 15-minute detour to pick someone up.</p>
+              </div>
+              <RadarRings />
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+function FeeComparison() {
+  return (
+    <div className="space-y-3">
+      <FeeBar label="Commercial platform cut" pct={25} tone="neutral" value="~25%" />
+      <FeeBar label="Rydin flat fee" pct={6} tone="emerald" value="₹4–₹8/trip" />
+    </div>
+  );
+}
+function FeeBar({ label, pct, tone, value }) {
+  const ref = useRef(null); const [seen, setSeen] = useState(false);
+  useEffect(() => { const el = ref.current; if (!el) return; const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setSeen(true); o.disconnect(); } }, { rootMargin: "-5% 0px" }); o.observe(el); return () => o.disconnect(); }, []);
+  return (
+    <div ref={ref}>
+      <div className="flex items-baseline justify-between text-[11px]"><span className="text-zinc-400">{label}</span><span className={cn("font-mono font-semibold", tone === "emerald" ? "text-emerald-300" : "text-zinc-400")}>{value}</span></div>
+      <div className="mt-1.5 h-2.5 rounded-full bg-white/[0.06]">
+        <div className={cn("h-full rounded-full transition-all duration-1000", tone === "emerald" ? "bg-gradient-to-r from-emerald-400 to-emerald-500" : "bg-zinc-500/70")} style={{ width: seen ? `${pct}%` : "0%" }}></div>
+      </div>
+    </div>
+  );
+}
+function KycChecklist() {
+  const items = [{ icon: Icons.Fingerprint, label: "Aadhaar identity" }, { icon: Icons.Camera, label: "Live selfie match" }, { icon: Icons.Car, label: "Licence + RC (drivers)" }];
+  return (
+    <ul className="space-y-2">
+      {items.map((it) => (
+        <li key={it.label} className="flex items-center gap-2.5 text-sm text-zinc-300">
+          <span className="grid h-7 w-7 place-items-center rounded-lg bg-emerald-500/15 text-emerald-300 ring-1 ring-emerald-400/20"><it.icon className="h-3.5 w-3.5" strokeWidth={2.2} /></span>
+          {it.label}
+        </li>
+      ))}
+    </ul>
+  );
+}
+function RadarRings() {
+  return (
+    <svg viewBox="0 0 200 140" className="h-32 w-full max-w-[16rem] sm:w-64" aria-hidden="true">
+      <defs><radialGradient id="rg" cx="50%" cy="50%" r="50%"><stop offset="0%" stopColor="rgba(16,185,129,0.35)" /><stop offset="100%" stopColor="transparent" /></radialGradient></defs>
+      {[54, 38, 22].map((r, i) => <ellipse key={i} cx="100" cy="70" rx={r * 1.5} ry={r} fill="none" stroke="rgba(16,185,129,0.25)" strokeWidth="1" strokeDasharray="3 4" />)}
+      <ellipse cx="100" cy="70" rx="81" ry="54" fill="url(#rg)" />
+      <circle cx="100" cy="70" r="4" fill="#10B981" />
+      {[[52, 52], [148, 60], [120, 96], [72, 92]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r="3" fill="#34d399"><animate attributeName="opacity" values="0.3;1;0.3" dur={`${2 + i * 0.4}s`} repeatCount="indefinite" /></circle>)}
+      <text x="100" y="20" textAnchor="middle" fill="#3f6212" className="font-mono" fontSize="8">1.5 km</text>
+      <text x="100" y="48" textAnchor="middle" fill="#065f46" className="font-mono" fontSize="7">800 m</text>
+    </svg>
+  );
+}
+
+function ReferralRewards() {
+  const { pass, focusForm } = useWaitlist();
+  const referrals = pass ? pass.referrals : 0;
+  const tiers = computeTierProgress(referrals);
+  const maxReferrals = REWARD_TIERS[REWARD_TIERS.length - 1].referrals;
+  const TIER_ICONS = [Icons.Rocket, Icons.Gift, Icons.Crown];
+  return (
+    <section id="rewards" className="relative px-4 py-16 sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-6xl">
+        <SectionLabel index="03" title="Move up the queue" />
+        <Reveal>
+          <h2 className="mt-6 max-w-2xl text-display-sm font-bold text-balance text-zinc-50">Carpooling only works if your route fills up.</h2>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-400">So inviting people on your corridor is the one thing that genuinely moves your launch date — and we pay you for it.</p>
+        </Reveal>
+        <div className="mt-10 grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
+          <Reveal className="rounded-3xl bg-white/[0.03] p-6 ring-hairline backdrop-blur-xl sm:p-8">
+            <div className="flex items-baseline justify-between">
+              <p className="text-xs font-medium text-zinc-400">{pass ? "Your progress" : "Reward ladder"}</p>
+              <p className="font-mono text-xs text-zinc-500" data-numeric>{referrals}/{maxReferrals} invites</p>
+            </div>
+            <div className="relative mt-4 h-2 rounded-full bg-white/[0.07]"><div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-emerald-400 to-emerald-500 transition-all duration-700" style={{ width: `${tiers.percent}%` }}></div></div>
+            <ol className="mt-7 space-y-4">
+              {REWARD_TIERS.map((tier, i) => {
+                const Icon = TIER_ICONS[i] || Icons.Gift; const reached = referrals >= tier.referrals;
+                return (
+                  <li key={tier.referrals} className="flex gap-4">
+                    <span className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-xl ring-1", reached ? "bg-emerald-500/20 text-emerald-300 ring-emerald-400/30" : "bg-white/[0.04] text-zinc-500 ring-white/10")}><Icon className="h-5 w-5" strokeWidth={2} /></span>
+                    <div className="min-w-0 flex-1 border-b border-white/[0.06] pb-4 last:border-0 last:pb-0">
+                      <div className="flex flex-wrap items-baseline gap-x-2">
+                        <span className="font-mono text-xs font-semibold text-emerald-400">{tier.referrals} invite{tier.referrals === 1 ? "" : "s"}</span>
+                        <span className={cn("text-sm font-semibold", reached ? "text-zinc-50" : "text-zinc-300")}>{tier.title}</span>
+                        {reached && <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-300">Unlocked</span>}
+                      </div>
+                      <p className="mt-1 text-xs leading-relaxed text-zinc-500">{tier.detail}</p>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+            <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-white/[0.07] pt-5">
+              <p className="font-mono text-xs text-amber-300/90">+{formatCount(QUEUE.spotsPerReferral)} spots per confirmed invite</p>
+              {!pass && <button type="button" onClick={focusForm} className="ml-auto text-xs font-semibold text-emerald-300 underline-offset-4 hover:underline">Get your link →</button>}
+            </div>
+          </Reveal>
+          <Reveal delay={0.08} className="rounded-3xl bg-white/[0.03] p-6 ring-hairline backdrop-blur-xl sm:p-7">
+            <div className="flex items-center gap-2"><Icons.Trophy className="h-4 w-4 text-amber-300" strokeWidth={2.2} /><p className="text-sm font-semibold text-zinc-50">Campus ambassadors</p></div>
+            <p className="mt-1 text-[11px] text-zinc-500">Most invites this week</p>
+            <div className="mt-5 space-y-1">
+              {LEADERBOARD.map((entry) => (
+                <div key={entry.rank} className={cn("flex items-center gap-3 rounded-xl px-3 py-2.5", entry.rank === 1 ? "bg-amber-500/[0.08] ring-1 ring-amber-400/20" : "hover:bg-white/[0.03]")}>
+                  <span className={cn("grid h-6 w-6 shrink-0 place-items-center rounded-lg font-mono text-[11px] font-bold", entry.rank === 1 ? "bg-amber-400 text-amber-950" : "bg-white/[0.06] text-zinc-400")}>{entry.rank}</span>
+                  <div className="min-w-0 flex-1"><p className="truncate text-sm font-medium text-zinc-100">{entry.handle}</p><p className="truncate font-mono text-[10px] uppercase tracking-wide text-zinc-500">{entry.affiliation}</p></div>
+                  <div className="text-right"><p className="font-mono text-xs font-semibold text-emerald-300" data-numeric>{entry.referrals}</p><p className="font-mono text-[10px] text-zinc-600" data-numeric>−{formatCount(entry.spotsSkipped)}</p></div>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 border-t border-white/[0.07] pt-4 text-[11px] leading-relaxed text-zinc-600">Illustrative board for the preview. Live standings open with Batch 1.</p>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FaqAccordion() {
+  const [open, setOpen] = useState(0);
+  return (
+    <section id="faq" className="relative px-4 py-16 sm:px-6 lg:py-24">
+      <div className="mx-auto max-w-3xl">
+        <SectionLabel index="04" title="Straight answers" />
+        <Reveal><h2 className="mt-6 text-display-sm font-bold text-balance text-zinc-50">The questions people actually ask.</h2></Reveal>
+        <div className="mt-10 divide-y divide-white/[0.07] overflow-hidden rounded-3xl bg-white/[0.03] ring-hairline backdrop-blur-xl">
+          {FAQS.map((faq, i) => {
+            const expanded = open === i;
+            return (
+              <div key={faq.question}>
+                <h3>
+                  <button type="button" aria-expanded={expanded} onClick={() => setOpen(expanded ? null : i)}
+                    className="flex w-full items-start gap-4 px-5 py-5 text-left transition-colors hover:bg-white/[0.02] sm:px-7 sm:py-6">
+                    <span className="mt-0.5 font-mono text-[11px] font-semibold text-emerald-400/70">{String(i + 1).padStart(2, "0")}</span>
+                    <span className={cn("flex-1 text-[15px] font-semibold leading-snug", expanded ? "text-zinc-50" : "text-zinc-200")}>{faq.question}</span>
+                    <span className={cn("mt-px grid h-7 w-7 shrink-0 place-items-center rounded-full ring-1 transition-all duration-300", expanded ? "rotate-[135deg] bg-emerald-500/20 text-emerald-300 ring-emerald-400/30" : "bg-white/[0.04] text-zinc-400 ring-white/10")}>
+                      <Icons.Plus className="h-4 w-4" strokeWidth={2.4} />
+                    </span>
+                  </button>
+                </h3>
+                <div className="grid transition-all duration-300" style={{ gridTemplateRows: expanded ? "1fr" : "0fr" }}>
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-6 pl-[3.1rem] text-sm leading-relaxed text-zinc-400 sm:px-7 sm:pb-7 sm:pl-[4rem]">{faq.answer}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <Reveal delay={0.1}><p className="mt-6 text-center text-xs text-zinc-600">Something still unclear? <a href="mailto:hello@rydin.in" className="font-medium text-emerald-300 underline-offset-4 hover:underline">hello@rydin.in</a></p></Reveal>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  const { pass, standing, queueCount, focusForm } = useWaitlist();
+  const NAV = [{ label: "How it works", href: "#why" }, { label: "Savings", href: "#savings" }, { label: "Rewards", href: "#rewards" }, { label: "FAQ", href: "#faq" }];
+  return (
+    <footer className="relative overflow-hidden">
+      <GlowOrb className="-bottom-40 left-1/2 h-[30rem] w-[30rem] -translate-x-1/2" />
+      <div className="relative px-4 pb-16 sm:px-6 lg:pb-24">
+        <Reveal className="mx-auto max-w-4xl overflow-hidden rounded-[2rem] bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-8 text-center ring-hairline backdrop-blur-xl sm:p-12">
+          <div className="mx-auto inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-3.5 py-1.5 ring-1 ring-emerald-400/20"><PulseDot /><span className="text-xs font-medium text-emerald-200/90">Batch 1 · MP Corridor</span></div>
+          <h2 className="mx-auto mt-6 max-w-2xl text-display-sm font-bold text-balance text-zinc-50">Your commute is already happening.<br /><span className="bg-gradient-to-r from-emerald-300 to-emerald-500 bg-clip-text text-transparent">Stop paying full price for it.</span></h2>
+          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-zinc-400">
+            {pass && standing ? <React.Fragment>You're holding pass <span className="font-mono text-zinc-200">{pass.passId}</span> at position <span className="font-mono text-emerald-300" data-numeric>#{formatCount(standing.currentPosition)}</span>. Invite someone on your route to move up.</React.Fragment>
+              : <React.Fragment>Join <span className="font-mono text-zinc-200" data-numeric>{formatCount(queueCount)}</span> verified commuters across {QUEUE.activeCorridors} corridors. No card, no spam — just your spot in line.</React.Fragment>}
+          </p>
+          <Tactile onClick={focusForm} className="mt-8 inline-flex items-center gap-2 rounded-2xl bg-gradient-to-b from-emerald-400 to-emerald-600 px-7 py-4 text-base font-semibold text-white shadow-emerald">
+            {pass ? <React.Fragment><Icons.Ticket className="h-5 w-5" strokeWidth={2.3} /> View my Queue Pass</React.Fragment> : <React.Fragment>Claim my Queue Pass <Icons.ArrowRight className="h-5 w-5" strokeWidth={2.4} /></React.Fragment>}
+          </Tactile>
+        </Reveal>
+      </div>
+      <div className="relative border-t border-white/[0.07] bg-ink-void/60 px-4 py-12 backdrop-blur-xl sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="flex flex-col gap-10 lg:flex-row lg:justify-between">
+            <div className="max-w-sm">
+              <Wordmark />
+              <p className="mt-4 text-sm leading-relaxed text-zinc-400">{BRAND.positioning}.</p>
+              <p className="mt-2 font-mono text-xs text-emerald-400/80">{BRAND.tagline}</p>
+            </div>
+            <div className="flex flex-wrap gap-x-16 gap-y-8">
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Explore</p>
+                <ul className="mt-4 space-y-2.5">{NAV.map((l) => <li key={l.label}><a href={l.href} className="text-sm text-zinc-400 transition-colors hover:text-emerald-300">{l.label}</a></li>)}</ul>
+              </div>
+              <div>
+                <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500">Reach us</p>
+                <div className="mt-4 flex gap-2">
+                  <a href="mailto:hello@rydin.in" aria-label="Email Rydin" className="grid h-9 w-9 place-items-center rounded-xl bg-white/[0.04] text-zinc-400 ring-hairline transition-colors hover:bg-white/[0.08] hover:text-emerald-300"><Icons.Mail className="h-4 w-4" strokeWidth={2.1} /></a>
+                  <a href="#" aria-label="Rydin on Instagram" className="grid h-9 w-9 place-items-center rounded-xl bg-white/[0.04] text-zinc-400 ring-hairline transition-colors hover:bg-white/[0.08] hover:text-emerald-300"><Icons.Instagram className="h-4 w-4" strokeWidth={2.1} /></a>
+                  <a href="#" aria-label="Rydin on LinkedIn" className="grid h-9 w-9 place-items-center rounded-xl bg-white/[0.04] text-zinc-400 ring-hairline transition-colors hover:bg-white/[0.08] hover:text-emerald-300"><Icons.Linkedin className="h-4 w-4" strokeWidth={2.1} /></a>
+                </div>
+                <p className="mt-4 text-xs text-zinc-500">Indore · Madhya Pradesh</p>
+              </div>
+            </div>
+          </div>
+          <div className="mt-12 border-t border-white/[0.07] pt-6">
+            <p className="max-w-3xl text-[11px] leading-relaxed text-zinc-600">Rydin is a peer-to-peer cost-sharing network, not a taxi or transport service. Drivers are private individuals sharing empty seats on trips they are already making, and contributions are capped at documented fuel cost for the shared distance. Savings figures on this page are estimates based on the stated assumptions, not quotes. Waitlist positions in this preview are stored in your browser only.</p>
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+              <p className="text-[11px] text-zinc-600">© {new Date().getFullYear()} {BRAND.name}. Built in Madhya Pradesh.</p>
+              <p className="font-mono text-[11px] text-zinc-700">v1.0 · waitlist</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function StickyCta() {
+  const { pass, standing, queueCount, focusForm } = useWaitlist();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const target = document.getElementById("waitlist");
+    if (!target) return;
+    const observer = new IntersectionObserver(([entry]) => setVisible(!entry.isIntersecting), { rootMargin: "-72px 0px 0px 0px", threshold: 0 });
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div className={cn("fixed inset-x-0 bottom-0 z-40 px-3 pb-3 transition-all duration-300 sm:px-5 sm:pb-4", visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-24 opacity-0")}>
+      <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 rounded-2xl bg-ink-deep/85 px-4 py-3 shadow-glass ring-hairline backdrop-blur-xl">
+        <div className="min-w-0">
+          {pass && standing ? (
+            <React.Fragment>
+              <p className="truncate text-sm font-semibold text-zinc-50">You're <span className="font-mono text-emerald-300" data-numeric>#{formatCount(standing.currentPosition)}</span> in line</p>
+              <p className="truncate text-[11px] text-zinc-500">Invite peers to move up the queue</p>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <p className="truncate text-sm font-semibold text-zinc-50">Join <span className="font-mono text-emerald-300" data-numeric>{formatCount(queueCount)}</span> peers skipping surge pricing</p>
+              <p className="truncate text-[11px] text-zinc-500">Batch 1 opens on the MP corridor</p>
+            </React.Fragment>
+          )}
+        </div>
+        <Tactile onClick={focusForm} className="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-gradient-to-b from-emerald-400 to-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-emerald-sm">
+          {pass ? <React.Fragment><Icons.Ticket className="h-4 w-4" strokeWidth={2.3} /><span className="hidden sm:inline">View pass</span><span className="sm:hidden">Pass</span></React.Fragment>
+            : <React.Fragment><Icons.ArrowUp className="h-4 w-4" strokeWidth={2.4} /> Join waitlist</React.Fragment>}
+        </Tactile>
+      </div>
+    </div>
+  );
+}
+
+/* ================================================================== *
+ * Mount
+ * ================================================================== */
+function App() {
+  return (
+    <WaitlistProvider>
+      <Header />
+      <main>
+        <Hero />
+        <TelemetryStrip />
+        <SavingsCalculator />
+        <RoadDivider />
+        <BentoGrid />
+        <RoadDivider />
+        <ReferralRewards />
+        <FaqAccordion />
+      </main>
+      <Footer />
+      <StickyCta />
+    </WaitlistProvider>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    
+    </script>
+  </body>
+</html>
