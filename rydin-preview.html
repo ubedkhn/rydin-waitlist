@@ -95,8 +95,8 @@ const QUEUE = {
 
 const REWARD_TIERS = [
   { referrals: 1, title: "Early Beta Access", detail: "First build on your phone before the public store listing." },
-  { referrals: 3, title: "Rydin Plus", detail: "Zero platform fees for your first three months of riding." },
-  { referrals: 5, title: "Founding Member", detail: "₹150 fuel credit plus the Founding Member badge on your profile." },
+  { referrals: 3, title: "Priority Radar Unlock", detail: "Your ride requests are routed to drivers 60 seconds before regular users." },
+  { referrals: 5, referralLabel: "5+ invites", title: "Founding Member VIP Status", detail: "Permanent Founding Member Profile Badge + Access to the Rydin VIP Advisory Board." },
 ];
 
 const LEADERBOARD = [
@@ -1259,7 +1259,7 @@ function ReferralRewards() {
                     <span className={cn("grid h-10 w-10 shrink-0 place-items-center rounded-xl ring-1", reached ? "bg-emerald-500/20 text-emerald-300 ring-emerald-400/30" : "bg-white/[0.04] text-zinc-500 ring-white/10")}><Icon className="h-5 w-5" strokeWidth={2} /></span>
                     <div className="min-w-0 flex-1 border-b border-white/[0.06] pb-4 last:border-0 last:pb-0">
                       <div className="flex flex-wrap items-baseline gap-x-2">
-                        <span className="font-mono text-xs font-semibold text-emerald-400">{tier.referrals} invite{tier.referrals === 1 ? "" : "s"}</span>
+                        <span className="font-mono text-xs font-semibold text-emerald-400">{tier.referralLabel || `${tier.referrals} invite${tier.referrals === 1 ? "" : "s"}`}</span>
                         <span className={cn("text-sm font-semibold", reached ? "text-zinc-50" : "text-zinc-300")}>{tier.title}</span>
                         {reached && <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-emerald-300">Unlocked</span>}
                       </div>
