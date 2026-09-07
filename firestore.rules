@@ -1,0 +1,41 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /waitlist_users/{userId} {
+      // 1. FORBID DELETION & MODIFICATION
+      // Once written, waitlist entries cannot be changed or deleted from the frontend
+      allow update, delete: if false;
+
+      // 2. DISALLOW GENERAL LISTING (ANTI-SCRAPING)
+      // Stops anyone from downloading the entire waitlist database
+      allow list: if false;
+
+      // 3. ALLOW SINGLE DOCUMENT READ
+      // Only allows reading a specific user's pass by exact document ID
+      allow get: if true;
+
+      // 4. STRICT SCHEMA VALIDATION ON INSERT
+      // Allows anyone to join, but strictly validates field types and required data
+      allow create: if request.resource.data.keys().hasAll([
+          'username', 'email', 'route', 'gender', 'queue_position', 'referral_code', 'joined_at'
+        ])
+        && request.resource.data.username is string
+        && request.resource.data.username.size() >= 2
+        && request.resource.data.username.size() <= 60
+        && request.resource.data.email is string
+        && request.resource.data.email.matches('^.+@.+\\..+$')
+        && request.resource.data.route is string
+        && request.resource.data.gender in ['Male', 'Female', 'Other']
+        && request.resource.data.queue_position is number
+        && request.resource.data.queue_position >= 200
+        && request.resource.data.referral_code is string
+        && request.resource.data.women_only_preference is bool;
+    }
+
+    // Default deny for all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

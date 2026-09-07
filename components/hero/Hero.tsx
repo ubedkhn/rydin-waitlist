@@ -13,7 +13,11 @@ import { WaitlistCard } from "@/components/waitlist/WaitlistCard";
  * This section stays a server component — only the card below it is a client
  * island, so the headline and copy ship as static HTML.
  */
-export function Hero() {
+interface HeroProps {
+  onSuccess?: () => void;
+}
+
+export function Hero({ onSuccess }: HeroProps = {}) {
   return (
     <section
       id="top"
@@ -74,7 +78,7 @@ export function Hero() {
             aria-hidden="true"
             className="absolute -inset-4 -z-10 rounded-[32px] bg-gradient-to-b from-brand-200/40 to-transparent blur-2xl"
           />
-          <WaitlistCard />
+          <WaitlistCard onSuccess={onSuccess} />
         </div>
       </div>
     </section>

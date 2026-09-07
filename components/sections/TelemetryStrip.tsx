@@ -1,7 +1,7 @@
 "use client";
 
 import { BadgeCheck, Fuel, Route, Users } from "lucide-react";
-import { formatCount, formatINR } from "@/lib/rydin/calc";
+import { formatCount, formatINR, projectedPooledSavings } from "@/lib/rydin/calc";
 import { useWaitlist } from "@/components/waitlist/WaitlistProvider";
 import { AnimatedNumber, Reveal } from "@/components/ui/motion";
 import { PulseDot } from "@/components/ui/primitives";
@@ -9,20 +9,25 @@ import { PulseDot } from "@/components/ui/primitives";
 /* ================================================================== *
  * Live telemetry strip.
  *
- * Every figure here comes out of one `telemetry` object on the waitlist
- * context — commuters, pooled savings and corridor count alike. Nothing
- * on this strip is a literal in this file. That matters for two
- * reasons: the numbers can never drift apart on screen (readers notice
- * when a "live" counter moves and its dependent total doesn't), and when
- * `GET /api/waitlist/stats` starts answering, the provider swaps the
- * object and this component is already correct with no edit.
- *
- * The commuter count starts at the mandated floor of 200 and only ever
- * rises — see QUEUE.baseCount and the clamp in WaitlistProvider.
+ * Receives the elevated live commuterCount prop from the parent layout/page
+ * and dynamically calculates derivative metrics (fuel savings) directly from it.
  * ================================================================== */
 
-export function TelemetryStrip() {
+interface TelemetryStripProps {
+  commuterCount?: number;
+}
+
+export function TelemetryStrip({ commuterCount }: TelemetryStripProps = {}) {
   const { telemetry } = useWaitlist();
+
+  // Elevated live commuter count from parent state, falling back to telemetry.commuters
+  const liveCommuters =
+    typeof commuterCount === "number" && commuterCount > 0
+      ? commuterCount
+      : telemetry.commuters;
+
+  // Derivative metrics dynamically recalculating based on the live commuterCount
+  const liveMonthlyFuelSavings = projectedPooledSavings(liveCommuters);
 
   return (
     <section className="relative px-4 py-10 sm:px-6 lg:py-14">
@@ -38,7 +43,7 @@ export function TelemetryStrip() {
             live
             value={
               <AnimatedNumber
-                value={telemetry.commuters}
+                value={liveCommuters}
                 format={(n) => formatCount(n)}
               />
             }
@@ -49,7 +54,7 @@ export function TelemetryStrip() {
             tone="amber"
             value={
               <AnimatedNumber
-                value={telemetry.monthlyFuelSavings}
+                value={liveMonthlyFuelSavings}
                 format={(n) => formatINR(n)}
               />
             }

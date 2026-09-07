@@ -53,7 +53,11 @@ const GENDERS: { value: Gender; label: string }[] = [
   { value: "other", label: "Other" },
 ];
 
-export function WaitlistCard() {
+interface WaitlistCardProps {
+  onSuccess?: () => void;
+}
+
+export function WaitlistCard({ onSuccess }: WaitlistCardProps = {}) {
   const { pass, standing, hydrated, submitting, join, addReferral, reset } =
     useWaitlist();
 
@@ -112,7 +116,11 @@ export function WaitlistCard() {
     setFormError(null);
 
     const result = await join(draft);
-    if (!result.ok) setFormError(result.message);
+    if (!result.ok) {
+      setFormError(result.message);
+    } else {
+      onSuccess?.();
+    }
   };
 
   const handleNext1 = () => {
@@ -274,7 +282,7 @@ export function WaitlistCard() {
                         <h2 className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-50">Reserve your spot</h2>
                         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">Pick a username and email to lock your queue position.</p>
                       </div>
-                      <span className="shrink-0 rounded-full bg-emerald-50 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-400 ring-1 ring-inset ring-emerald-500/20">
+                      <span className="shrink-0 rounded-full bg-emerald-50 dark:bg-emerald-500/15 px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wide text-emerald-700 dark:text-emerald-300 ring-1 ring-inset ring-emerald-500/20 dark:ring-emerald-500/30">
                         BATCH 1
                       </span>
                     </div>

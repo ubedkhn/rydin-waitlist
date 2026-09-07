@@ -241,7 +241,7 @@
 
 .dark {
   color-scheme: dark;
-  --stub-notch: #0f172a; /* matches bg-slate-900 */
+  --stub-notch: #020617; /* matches dark:bg-slate-950 floor */
 }
 
 .dark .ring-hairline {

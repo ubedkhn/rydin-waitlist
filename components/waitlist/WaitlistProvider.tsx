@@ -23,6 +23,12 @@ import { QUEUE, routeCodeFor } from "@/lib/rydin/constants";
 import { clearPass, readPass, writePass } from "@/lib/rydin/storage";
 import { isInstitutionalEmail, normalise } from "@/lib/rydin/validate";
 import { fetchTelemetry, lookupByEmail, submitWaitlist } from "@/lib/rydin/api";
+import {
+  submitToFirestoreWaitlist,
+  lookupFirestoreWaitlistUser,
+  getLiveFirestoreCount,
+} from "@/lib/rydin/firestoreWaitlist";
+import { testConnection } from "@/lib/firebase";
 import type {
   Gender,
   QueuePassRecord,
@@ -124,10 +130,13 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
    */
   const referredBy = useRef<string | undefined>(undefined);
 
-  // Rehydrate once on mount.
+  // Rehydrate once on mount & test Firestore connection.
   useEffect(() => {
     setPass(readPass());
     setHydrated(true);
+
+    // Boot-time Firestore connection verification
+    void testConnection();
 
     const params = new URLSearchParams(window.location.search);
     const fromQuery = params.get("ref");
@@ -137,31 +146,30 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
   }, []);
 
   /**
-   * Live counters, from the backend.
-   *
-   * There is deliberately no ambient "+1 every few seconds" ticker here. On a
-   * queue of 200 a fake ticker would add a hundred people in ten minutes and
-   * the number would be visibly fictional. Instead the count moves for exactly
-   * two reasons: this page's own successful submission, and a real figure
-   * polled from Mongo. Polling pauses while the tab is hidden.
+   * Live counters from Firestore.
    */
   useEffect(() => {
     let cancelled = false;
 
     const pull = async () => {
       if (document.hidden) return;
-      const result = await fetchTelemetry();
-      if (cancelled || !result.ok) return;
-      setTelemetry((current) => ({
-        // The floor is a floor, including against the server: a fresh database
-        // reporting 3 commuters must not walk the headline number backwards.
-        commuters: Math.max(QUEUE.baseCount, result.data.commuters, current.commuters),
-        monthlyFuelSavings: Math.max(
-          projectedPooledSavings(QUEUE.baseCount),
-          result.data.monthlyFuelSavings,
-        ),
-        activeCorridors: Math.max(1, result.data.activeCorridors),
-      }));
+      try {
+        const liveCount = await getLiveFirestoreCount();
+        if (cancelled) return;
+        setTelemetry((current) => {
+          const commuters = Math.max(QUEUE.baseCount, liveCount, current.commuters);
+          return {
+            ...current,
+            commuters,
+            monthlyFuelSavings: Math.max(
+              projectedPooledSavings(QUEUE.baseCount),
+              projectedPooledSavings(commuters),
+            ),
+          };
+        });
+      } catch {
+        // Silently preserve current telemetry if network hiccup
+      }
     };
 
     void pull();
@@ -187,9 +195,6 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
     const username = normalise(draft.username);
     const email = draft.email.trim().toLowerCase();
     const route = normalise(draft.route);
-    // Re-asserted here, not trusted from the UI: the toggle is only reachable
-    // for female commuters, and this is the line that guarantees it. The backend
-    // asserts the same rule again on its own side.
     const womenOnlyPreference = gender === "female" && draft.womenOnlyPreference;
 
     const seed = makeIdentitySeed(username, email);
@@ -212,45 +217,32 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
 
     setSubmitting(true);
     try {
-      const result = await submitWaitlist({
+      // 1. Submit directly to Cloud Firestore collection 'waitlist_users'
+      const firestoreResult = await submitToFirestoreWaitlist({
         username,
         email,
         route,
         gender,
-        womenOnlyPreference,
-        referredBy: referredBy.current,
+        women_only_preference: womenOnlyPreference,
       });
 
-      // The server answered and refused — a validation error or a rate limit.
-      // Surface it; do not paper over it with a fabricated pass.
-      if (!result.ok && result.kind === "rejected") {
-        return { ok: false, message: result.message };
-      }
-
-      const record: QueuePassRecord = result.ok
-        ? {
-            ...localFallback,
-            passId: result.data.passId,
-            referralCode: result.data.referralCode,
-            basePosition: result.data.queuePosition,
-            routeCode: result.data.routeCode,
-            institutionVerified: result.data.institutionVerified,
-            womenOnlyPreference: result.data.womenOnlyPreference,
-            joinedAt: result.data.joinedAt,
-            origin: "server",
-          }
-        : localFallback;
+      const record: QueuePassRecord = {
+        ...localFallback,
+        passId: firestoreResult.docId || makePassId(seed),
+        referralCode: firestoreResult.referral_code,
+        basePosition: firestoreResult.queue_position,
+        routeCode: routeCodeFor(route),
+        institutionVerified: isInstitutionalEmail(email),
+        womenOnlyPreference: firestoreResult.women_only_preference,
+        joinedAt: firestoreResult.joined_at || new Date().toISOString(),
+        origin: "server",
+      };
 
       setPass(record);
       writePass(record);
 
       setTelemetry((current) => {
-        // A replayed submission must not inflate the counter — the same person
-        // joining twice is one commuter.
-        const alreadyCounted = result.ok && result.data.alreadyJoined;
-        const commuters = result.ok
-          ? Math.max(QUEUE.baseCount, result.data.totalInQueue, current.commuters)
-          : current.commuters + (alreadyCounted ? 0 : 1);
+        const commuters = Math.max(QUEUE.baseCount, record.basePosition, current.commuters);
         return {
           ...current,
           commuters,
@@ -264,8 +256,20 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
       return {
         ok: true,
         record,
-        alreadyJoined: result.ok ? result.data.alreadyJoined : false,
-        degraded: !result.ok,
+        alreadyJoined: firestoreResult.alreadyJoined,
+        degraded: false,
+      };
+    } catch (error) {
+      console.error("Firestore submit error, falling back to local session pass:", error);
+      // Even if Firestore hits an error or offline network, issue a provisional local pass
+      setPass(localFallback);
+      writePass(localFallback);
+
+      return {
+        ok: true,
+        record: localFallback,
+        alreadyJoined: false,
+        degraded: true,
       };
     } finally {
       setSubmitting(false);
@@ -295,35 +299,34 @@ export function WaitlistProvider({ children }: { children: ReactNode }) {
       const sameDevice =
         remembered && remembered.email.toLowerCase() === query ? remembered : null;
 
-      const result = await lookupByEmail(query);
-      if (result.ok) {
-        // The server is authoritative for the position and the codes. Anything
-        // it does not store — the username and route as typed — is taken from
-        // this device when it is the same person, so the recovered stub is not
-        // half blank.
-        const record: QueuePassRecord = {
-          version: 2,
-          username: sameDevice?.username ?? query.slice(0, query.indexOf("@")),
-          email: query,
-          route: sameDevice?.route ?? "",
-          routeCode: result.data.routeCode,
-          gender: sameDevice?.gender ?? "other",
-          womenOnlyPreference: result.data.womenOnlyPreference,
-          institutionVerified: result.data.institutionVerified,
-          passId: result.data.passId,
-          referralCode: result.data.referralCode,
-          basePosition: result.data.queuePosition,
-          referrals: sameDevice?.referrals ?? 0,
-          joinedAt: result.data.joinedAt,
-          origin: "server",
-        };
-        setPass(record);
-        writePass(record);
-        return record;
+      try {
+        const fsUser = await lookupFirestoreWaitlistUser(query);
+        if (fsUser) {
+          const record: QueuePassRecord = {
+            version: 2,
+            username: fsUser.username || sameDevice?.username || query.slice(0, query.indexOf("@")),
+            email: query,
+            route: fsUser.route || sameDevice?.route || "",
+            routeCode: routeCodeFor(fsUser.route || sameDevice?.route || ""),
+            gender: (fsUser.gender as Gender) || sameDevice?.gender || "other",
+            womenOnlyPreference: fsUser.women_only_preference,
+            institutionVerified: isInstitutionalEmail(query),
+            passId: fsUser.docId || sameDevice?.passId || "FS-PASS",
+            referralCode: fsUser.referral_code,
+            basePosition: fsUser.queue_position,
+            referrals: sameDevice?.referrals ?? 0,
+            joinedAt: fsUser.joined_at || new Date().toISOString(),
+            origin: "server",
+          };
+          setPass(record);
+          writePass(record);
+          return record;
+        }
+      } catch (err) {
+        console.warn("Firestore email lookup failed:", err);
       }
 
-      // Server unreachable, or no such address — fall back to whatever this
-      // device remembers.
+      // Fallback to whatever this device remembers if not found in Firestore or offline
       return sameDevice;
     },
     [pass],

@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "WaitlistUser": {
+      "title": "WaitlistUser",
+      "description": "A user registration on the Rydin waitlist",
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Handle or display name chosen by the user",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address",
+          "minLength": 3,
+          "maxLength": 150
+        },
+        "route": {
+          "type": "string",
+          "description": "Selected transit corridor or route",
+          "maxLength": 100
+        },
+        "gender": {
+          "type": "string",
+          "description": "User gender identifier",
+          "maxLength": 50
+        },
+        "women_only_preference": {
+          "type": "boolean",
+          "description": "Flag indicating preference for women-only ride matching"
+        },
+        "queue_position": {
+          "type": "number",
+          "description": "Dynamic queue number starting from 200 plus collection count"
+        },
+        "referral_code": {
+          "type": "string",
+          "description": "Unique referral code formatted as RYDIN-{FIRSTNAME}{RANDOM_3_DIGITS}",
+          "maxLength": 50
+        },
+        "joined_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp of waitlist registration"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "route",
+        "gender",
+        "women_only_preference",
+        "queue_position",
+        "referral_code",
+        "joined_at"
+      ]
+    }
+  },
+  "firestore": {
+    "/waitlist_users/{userId}": {
+      "schema": "WaitlistUser",
+      "description": "Collection of waitlist user submissions"
+    }
+  }
+}

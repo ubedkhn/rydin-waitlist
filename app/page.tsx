@@ -1,3 +1,9 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { collection, getCountFromServer } from "firebase/firestore";
+import { db } from "@/lib/firebase";
+import { readPass } from "@/lib/rydin/storage";
 import { Header } from "@/components/site/Header";
 import { StickyCta } from "@/components/site/StickyCta";
 import { SocialBar } from "@/components/site/SocialBar";
@@ -12,26 +18,54 @@ import { WaitlistProvider } from "@/components/waitlist/WaitlistProvider";
 import { RoadDivider } from "@/components/ui/primitives";
 
 /**
- * Rydin waitlist — page assembly.
+ * Rydin waitlist — page assembly with elevated commuterCount state.
  *
- * Everything sits inside a single WaitlistProvider so the header lookup, the
- * hero card, the telemetry strip, the rewards ladder, the sticky bar and the
- * footer all read one source of truth. Without that they would each keep their
- * own copy of "has this person joined?" and visibly disagree.
- *
- * Order is an argument, not a layout: the problem and the ask (hero), proof
- * that others already agreed (telemetry), the reader's own numbers (calculator),
- * how it works and why it's safe (bento), what they get for spreading it
- * (rewards), the objections (FAQ), then the last ask (footer).
+ * State elevation connects the live Firestore intake and immediate form
+ * submissions directly with the TelemetryStrip and derivative fuel savings.
  */
 export default function Page() {
+  const [commuterCount, setCommuterCount] = useState<number>(200);
+
+  useEffect(() => {
+    let active = true;
+
+    // Check stored pass so counter immediately accounts for confirmed spot
+    const local = readPass();
+    if (local?.basePosition) {
+      setCommuterCount((prev) => Math.max(prev, local.basePosition));
+    }
+
+    async function initCommuterCount() {
+      try {
+        const waitlistCol = collection(db, "waitlist_users");
+        const countSnapshot = await getCountFromServer(waitlistCol);
+        const totalInCollection = countSnapshot.data().count;
+        if (active) {
+          setCommuterCount((prev) => Math.max(prev, 200 + totalInCollection));
+        }
+      } catch (err) {
+        console.warn("Telemetry count fetch fallback:", err);
+      }
+    }
+
+    void initCommuterCount();
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const handleSuccess = () => {
+    setCommuterCount((prev) => prev + 1);
+  };
+
   return (
     <WaitlistProvider>
       <Header />
 
       <main>
-        <Hero />
-        <TelemetryStrip />
+        <Hero onSuccess={handleSuccess} />
+        <TelemetryStrip commuterCount={commuterCount} />
         <SavingsCalculator />
         <RoadDivider />
         <BentoGrid />
